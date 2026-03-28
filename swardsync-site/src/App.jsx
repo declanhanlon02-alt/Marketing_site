@@ -1,913 +1,794 @@
-const stats = [
-  { value: "Less admin", label: "for office teams managing schedules, jobs, and customer updates" },
-  { value: "Less wasted travel", label: "through smarter route planning and cleaner daily workflows" },
-  { value: "More control", label: "over crews, jobs, customers, and completed work" },
-];
+import { useState } from "react";
 
-const painPoints = [
-  {
-    title: "Admin that eats into profit",
-    text: "When schedules, notes, customer details, and job updates live in different places, the office spends too much time chasing information instead of moving work forward.",
-  },
-  {
-    title: "Crews losing time in the field",
-    text: "Unclear job details, route confusion, and constant calls back to the office all reduce the amount of productive work that gets done each day.",
-  },
-  {
-    title: "Small mistakes that become costly",
-    text: "Missed details, forgotten follow-ups, and incomplete service records lead to revisit work, customer frustration, and margin leakage.",
-  },
-  {
-    title: "Software that feels overpriced",
-    text: "Many platforms are packed with complexity lawn care businesses do not need. SwardSync is positioned as a more focused, more practical option.",
-  },
-];
+export default function SwardSyncLanding() {
+  const [email, setEmail] = useState("");
+  const [heroSubmitted, setHeroSubmitted] = useState(false);
+  const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
+  const [waitlistForm, setWaitlistForm] = useState({ firstName: "", lastName: "", company: "", phone: "", email: "", size: "", note: "" });
 
-const features = [
-  {
-    kicker: "Scheduling",
-    title: "Recurring and one-off job planning",
-    text: "Keep the week organised, reduce manual scheduling effort, and make day-to-day planning easier to manage.",
-  },
-  {
-    kicker: "Routing",
-    title: "Smarter route flow for crews",
-    text: "Help teams move through the day with less wasted mileage, clearer job order, and fewer avoidable delays.",
-  },
-  {
-    kicker: "Customers",
-    title: "Customer and property records in one place",
-    text: "Keep contact details, site notes, service history, and property information easy to access when it matters.",
-  },
-  {
-    kicker: "Field access",
-    title: "Mobile job visibility for crews",
-    text: "Give crews the details they need on the go so they can stay focused without repeated back-and-forth with the office.",
-  },
-  {
-    kicker: "Tracking",
-    title: "Clear status and follow-up management",
-    text: "See what is done, what still needs attention, and what needs a revisit before problems slip through the cracks.",
-  },
-  {
-    kicker: "Proof of work",
-    title: "Notes and photo records",
-    text: "Keep stronger service records for quality control, customer communication, and better visibility across the operation.",
-  },
-];
+  const handleHeroSubmit = (e) => {
+    e.preventDefault();
+    if (email.trim()) setHeroSubmitted(true);
+  };
 
-const savings = [
-  {
-    title: "Reduce office waste",
-    points: [
-      "Less time spent chasing updates and rewriting notes",
-      "Cleaner scheduling and customer visibility",
-      "Fewer avoidable communication gaps",
-    ],
-  },
-  {
-    title: "Improve crew productivity",
-    points: [
-      "Clearer job instructions for each visit",
-      "Better route flow across the day",
-      "More productive time on site",
-    ],
-  },
-  {
-    title: "Protect margins",
-    points: [
-      "Fewer missed details and incomplete records",
-      "Less revisit work caused by preventable issues",
-      "Better operational control as the business grows",
-    ],
-  },
-];
+  const handleWaitlistSubmit = () => {
+    if (waitlistForm.email.trim()) setWaitlistSubmitted(true);
+  };
 
-const steps = [
-  {
-    number: "01",
-    title: "Organise the office",
-    text: "Keep schedules, customer records, and job details together so the team spends less time piecing information together.",
-  },
-  {
-    number: "02",
-    title: "Support the field",
-    text: "Give crews clearer direction throughout the day so they can work faster, with fewer interruptions and less wasted movement.",
-  },
-  {
-    number: "03",
-    title: "Stay in control",
-    text: "Track completed work, outstanding issues, and follow-up needs so operations stay tighter as you grow.",
-  },
-];
+  const styles = `
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-function Styles() {
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-900: #0b2016;
+      --green-800: #112b1e;
+      --green-700: #1a3d2b;
+      --green-600: #245238;
+      --green-500: #2e6b48;
+      --green-400: #3b8c60;
+      --green-300: #5aad7e;
+      --green-200: #a8d8ba;
+      --green-100: #d8f0e4;
+      --green-50:  #eef8f2;
+      --gold:      #b8922a;
+      --gold-light:#d4a93c;
+      --cream:     #faf9f6;
+      --white:     #ffffff;
+      --text-900:  #0d1f16;
+      --text-700:  #2a4035;
+      --text-500:  #4d6b5c;
+      --text-300:  #8aaa97;
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 32px;
+      --shadow-sm: 0 1px 4px rgba(11,32,22,0.08);
+      --shadow-md: 0 4px 20px rgba(11,32,22,0.10);
+      --shadow-lg: 0 12px 48px rgba(11,32,22,0.14);
+      --shadow-xl: 0 24px 80px rgba(11,32,22,0.18);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    .sws-root {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text-900);
+      overflow-x: hidden;
+    }
+
+    /* ANNOUNCEMENT BAR */
+    .announce-bar {
+      background: linear-gradient(90deg, var(--green-900) 0%, var(--green-700) 50%, var(--green-800) 100%);
+      padding: 9px 5vw;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+    }
+    .announce-pill {
+      background: var(--gold); color: var(--green-900);
+      font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+    }
+    .announce-text {
+      font-size: 12.5px; font-weight: 400; color: rgba(216,240,228,0.88);
+      text-align: center;
+    }
+    .announce-text strong { color: var(--white); font-weight: 600; }
+    .announce-link {
+      font-size: 12px; font-weight: 600; color: var(--gold-light);
+      text-decoration: none; white-space: nowrap; flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .announce-link:hover { color: var(--white); }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 38px; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 64px;
+      background: rgba(250,249,246,0.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(46,107,72,0.10);
+      box-shadow: 0 1px 12px rgba(11,32,22,0.06);
+    }
+    .nav-brand { display: flex; flex-direction: column; gap: 1px; text-decoration: none; }
+    .nav-brand-name { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--green-700); letter-spacing: 0.01em; line-height: 1; }
+    .nav-brand-sub { font-size: 9.5px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-500); }
+    .nav-mobile-hide { display: flex; align-items: center; gap: 28px; }
+    .nav-link { font-size: 14px; font-weight: 500; color: var(--text-700); text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s; }
+    .nav-link:hover { color: var(--green-500); }
+    .nav-cta {
+      background: var(--green-700); color: var(--white);
+      font-family: var(--font-body); font-size: 13.5px; font-weight: 600;
+      padding: 9px 20px; border-radius: var(--radius-sm);
+      border: none; cursor: pointer; letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(26,61,43,0.25);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .nav-cta:hover { background: var(--green-600); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,61,43,0.30); }
+    .nav-cta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-300); flex-shrink: 0; animation: pulse 2s ease-in-out infinite; }
+
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.55;transform:scale(0.85)} }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 140px 5vw 72px;
+      background: linear-gradient(160deg, var(--green-900) 0%, var(--green-700) 55%, var(--green-600) 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-pattern {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(circle at 75% 30%, rgba(90,173,126,0.13) 0%, transparent 50%),
+        radial-gradient(circle at 12% 80%, rgba(184,146,42,0.09) 0%, transparent 42%);
+    }
+    .hero-bg-lines {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.05;
+      background-image: repeating-linear-gradient(90deg, rgba(255,255,255,1) 0px, rgba(255,255,255,1) 1px, transparent 1px, transparent 80px);
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px; align-items: center;
+      max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+    .hero-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(184,146,42,0.18); border: 1px solid rgba(212,169,60,0.38);
+      color: var(--gold-light); font-size: 10.5px; font-weight: 600;
+      letter-spacing: 0.11em; text-transform: uppercase;
+      padding: 5px 13px; border-radius: 100px;
+    }
+    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-light); animation: pulse 2s ease-in-out infinite; }
+    .hero-badge-secondary {
+      display: inline-flex; align-items: center;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(216,240,228,0.75); font-size: 10.5px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 5px 13px; border-radius: 100px;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4.8vw, 62px);
+      font-weight: 700; line-height: 1.10;
+      color: var(--white); margin-bottom: 22px; letter-spacing: -0.01em;
+    }
+    .hero-headline em { font-style: italic; color: var(--green-200); }
+    .hero-sub {
+      font-size: 16.5px; font-weight: 300; line-height: 1.72;
+      color: rgba(216,240,228,0.82); max-width: 500px; margin-bottom: 36px;
+    }
+    .hero-capture { margin-bottom: 28px; }
+    .hero-capture-form {
+      display: flex; align-items: stretch;
+      background: rgba(255,255,255,0.10); border: 1.5px solid rgba(255,255,255,0.20);
+      border-radius: var(--radius-sm); overflow: hidden; max-width: 460px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .hero-capture-form:focus-within { border-color: rgba(255,255,255,0.40); box-shadow: 0 0 0 4px rgba(255,255,255,0.06); }
+    .hero-capture-input { flex: 1; font-family: var(--font-body); font-size: 14.5px; font-weight: 400; padding: 13px 18px; background: transparent; border: none; outline: none; color: var(--white); }
+    .hero-capture-input::placeholder { color: rgba(216,240,228,0.45); }
+    .hero-capture-btn { background: var(--white); color: var(--green-700); font-family: var(--font-body); font-size: 13.5px; font-weight: 700; padding: 13px 22px; border: none; cursor: pointer; white-space: nowrap; letter-spacing: 0.02em; transition: background 0.2s; flex-shrink: 0; }
+    .hero-capture-btn:hover { background: var(--green-50); }
+    .hero-capture-success {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(90,173,126,0.18); border: 1.5px solid rgba(90,173,126,0.35);
+      border-radius: var(--radius-sm); padding: 13px 18px; max-width: 460px;
+    }
+    .hero-capture-success-icon { font-size: 18px; }
+    .hero-capture-success-text { font-size: 14px; color: var(--green-100); font-weight: 400; line-height: 1.4; }
+    .hero-capture-success-text strong { font-weight: 600; }
+    .hero-capture-note { font-size: 11.5px; color: rgba(216,240,228,0.45); margin-top: 9px; }
+    .hero-social-proof { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .hero-proof-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: rgba(216,240,228,0.65); font-weight: 300; }
+
+    .hero-right { display: flex; flex-direction: column; gap: 14px; }
+    .hero-launch-box {
+      background: rgba(184,146,42,0.14); border: 1.5px solid rgba(212,169,60,0.28);
+      border-radius: var(--radius-md); padding: 28px 26px;
+    }
+    .hero-launch-title { font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; color: var(--gold-light); text-transform: uppercase; margin-bottom: 20px; }
+    .hero-countdown-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 18px; }
+    .hero-countdown-cell { text-align: center; }
+    .hero-countdown-num { font-family: var(--font-display); font-size: 32px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 4px; }
+    .hero-countdown-label { font-size: 9px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(216,240,228,0.50); }
+    .hero-countdown-divider { height: 1px; background: rgba(212,169,60,0.18); margin-bottom: 18px; }
+    .hero-launch-date { font-size: 13px; color: rgba(216,240,228,0.72); font-weight: 300; line-height: 1.55; }
+    .hero-launch-date strong { color: var(--gold-light); font-weight: 600; }
+    .hero-card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .hero-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.11); border-radius: var(--radius-md); padding: 20px 18px; backdrop-filter: blur(8px); transition: transform 0.25s, background 0.25s; }
+    .hero-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.11); }
+    .hero-card-icon { font-size: 20px; margin-bottom: 9px; }
+    .hero-card-val { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 4px; }
+    .hero-card-val span { font-size: 15px; font-weight: 500; }
+    .hero-card-label { font-size: 11px; font-weight: 400; color: var(--green-200); line-height: 1.4; }
+
+    /* SECTION */
+    .section { padding: 96px 5vw; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-500); margin-bottom: 16px; }
+    .section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--green-400); border-radius: 2px; }
+    .section-title { font-family: var(--font-display); font-size: clamp(28px, 3.5vw, 46px); font-weight: 700; line-height: 1.15; color: var(--text-900); margin-bottom: 16px; letter-spacing: -0.01em; }
+    .section-title em { font-style: italic; color: var(--green-500); }
+    .section-sub { font-size: 17px; font-weight: 300; line-height: 1.7; color: var(--text-500); max-width: 600px; }
+
+    /* FOUNDING MEMBER */
+    .founding { background: var(--cream); }
+    .founding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; }
+    .founding-card { background: var(--white); border: 1px solid rgba(46,107,72,0.12); border-radius: var(--radius-lg); padding: 36px 28px; position: relative; overflow: hidden; transition: box-shadow 0.25s, transform 0.25s; }
+    .founding-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .founding-card-highlight { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), var(--shadow-md); }
+    .founding-card-highlight:hover { box-shadow: 0 0 0 1px var(--gold), var(--shadow-lg); }
+    .founding-card-ribbon { position: absolute; top: 18px; right: -10px; background: var(--gold); color: var(--green-900); font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 20px 4px 12px; border-radius: 2px 0 0 2px; }
+    .founding-tier { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-500); margin-bottom: 10px; }
+    .founding-tier-gold { color: var(--gold); }
+    .founding-name { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--text-900); margin-bottom: 6px; }
+    .founding-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 20px; }
+    .founding-price { font-family: var(--font-display); font-size: 42px; font-weight: 700; color: var(--green-700); line-height: 1; }
+    .founding-price-meta { display: flex; flex-direction: column; gap: 2px; }
+    .founding-price-period { font-size: 14px; color: var(--text-500); font-weight: 300; }
+    .founding-price-was { font-size: 13px; color: var(--text-300); font-weight: 300; text-decoration: line-through; }
+    .founding-divider { height: 1px; background: rgba(46,107,72,0.10); margin: 20px 0; }
+    .founding-perks { display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
+    .founding-perk { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--text-700); font-weight: 400; line-height: 1.45; }
+    .founding-perk::before { content: '✓'; color: var(--green-400); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+    .founding-btn { width: 100%; font-family: var(--font-body); font-size: 14px; font-weight: 600; padding: 13px 20px; border-radius: var(--radius-sm); cursor: pointer; letter-spacing: 0.02em; transition: all 0.2s; border: none; text-align: center; display: block; text-decoration: none; }
+    .founding-btn-primary { background: var(--green-700); color: var(--white); box-shadow: 0 3px 14px rgba(26,61,43,0.25); }
+    .founding-btn-primary:hover { background: var(--green-600); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,61,43,0.30); }
+    .founding-btn-secondary { background: transparent; color: var(--green-600); border: 1.5px solid rgba(46,107,72,0.28) !important; }
+    .founding-btn-secondary:hover { border-color: var(--green-500) !important; background: var(--green-50); }
+    .founding-spots { margin-top: 12px; font-size: 12px; text-align: center; color: var(--text-300); }
+    .founding-spots strong { color: var(--gold); }
+
+    /* PAIN */
+    .pain { background: var(--white); }
+    .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+    .pain-card { border: 1px solid rgba(46,107,72,0.12); border-radius: var(--radius-md); padding: 32px 28px; background: var(--white); transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s; position: relative; overflow: hidden; }
+    .pain-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green-500), var(--green-300)); transform: scaleX(0); transform-origin: left; transition: transform 0.35s; }
+    .pain-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: rgba(46,107,72,0.22); }
+    .pain-card:hover::before { transform: scaleX(1); }
+    .pain-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); background: var(--green-50); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; }
+    .pain-title { font-size: 16px; font-weight: 600; color: var(--text-900); margin-bottom: 10px; }
+    .pain-desc { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--text-500); }
+
+    /* FEATURES */
+    .features { background: var(--green-900); }
+    .features .section-title { color: var(--white); }
+    .features .section-sub { color: rgba(216,240,228,0.70); }
+    .features .section-label { color: var(--green-300); }
+    .features .section-label::before { background: var(--green-400); }
+    .features-coming-note { display: inline-flex; align-items: center; gap: 8px; background: rgba(184,146,42,0.15); border: 1px solid rgba(212,169,60,0.25); color: var(--gold-light); font-size: 12px; font-weight: 500; padding: 8px 16px; border-radius: 100px; margin-top: 16px; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 52px; background: rgba(255,255,255,0.05); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+    .feature-cell { padding: 36px 30px; background: var(--green-900); transition: background 0.25s; }
+    .feature-cell:hover { background: rgba(255,255,255,0.04); }
+    .feature-num { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--green-400); letter-spacing: 0.05em; margin-bottom: 16px; }
+    .feature-icon { font-size: 26px; margin-bottom: 14px; display: block; }
+    .feature-title { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+    .feature-desc { font-size: 13.5px; font-weight: 300; line-height: 1.65; color: rgba(216,240,228,0.65); }
+
+    /* WORKFLOW */
+    .workflow { background: var(--cream); }
+    .workflow-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 72px; }
+    .workflow-steps {}
+    .workflow-step { display: grid; grid-template-columns: 80px 1fr; gap: 0; align-items: start; }
+    .workflow-step-num-col { display: flex; flex-direction: column; align-items: center; }
+    .workflow-step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--green-700); color: var(--white); font-family: var(--font-display); font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 0 6px rgba(46,107,72,0.12); }
+    .workflow-step-line { width: 2px; flex: 1; min-height: 48px; background: linear-gradient(to bottom, var(--green-300), transparent); margin: 8px auto 0; }
+    .workflow-step:last-child .workflow-step-line { display: none; }
+    .workflow-step-body { padding: 2px 0 52px 0; }
+    .workflow-step-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-500); margin-bottom: 6px; }
+    .workflow-step-title { font-size: 18px; font-weight: 600; color: var(--text-900); margin-bottom: 8px; }
+    .workflow-step-desc { font-size: 14px; font-weight: 300; line-height: 1.7; color: var(--text-500); }
+    .workflow-visual-col { display: flex; flex-direction: column; gap: 14px; padding-top: 8px; }
+    .workflow-badge { background: var(--white); border: 1px solid rgba(46,107,72,0.15); border-radius: var(--radius-md); padding: 20px 22px; box-shadow: var(--shadow-sm); display: flex; align-items: flex-start; gap: 14px; }
+    .workflow-badge-icon { font-size: 20px; margin-top: 1px; }
+    .workflow-badge-title { font-size: 14px; font-weight: 600; color: var(--text-900); margin-bottom: 3px; }
+    .workflow-badge-desc { font-size: 12.5px; color: var(--text-500); line-height: 1.5; font-weight: 300; }
+
+    /* SAVINGS */
+    .savings { background: linear-gradient(135deg, var(--green-800) 0%, var(--green-700) 100%); position: relative; overflow: hidden; }
+    .savings-bg { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 80% 50%, rgba(90,173,126,0.15) 0%, transparent 60%); }
+    .savings .section-title { color: var(--white); }
+    .savings .section-sub { color: rgba(216,240,228,0.75); }
+    .savings .section-label { color: var(--gold-light); }
+    .savings .section-label::before { background: var(--gold); }
+    .savings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; }
+    .savings-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: var(--radius-lg); padding: 34px 30px; backdrop-filter: blur(6px); transition: background 0.25s, transform 0.25s; }
+    .savings-card:hover { background: rgba(255,255,255,0.10); transform: translateY(-3px); }
+    .savings-card-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; }
+    .savings-card-icon { font-size: 26px; }
+    .savings-card-badge { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-light); background: rgba(184,146,42,0.18); border: 1px solid rgba(212,169,60,0.25); padding: 4px 10px; border-radius: 100px; }
+    .savings-card-title { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+    .savings-card-desc { font-size: 13.5px; font-weight: 300; line-height: 1.7; color: rgba(216,240,228,0.72); }
+    .savings-list { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .savings-list-item { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: rgba(216,240,228,0.80); font-weight: 300; }
+    .savings-list-item::before { content: '✓'; color: var(--green-300); font-size: 11px; font-weight: 700; flex-shrink: 0; }
+
+    /* WAITLIST */
+    .waitlist { background: var(--cream); }
+    .waitlist-inner-wrap { background: var(--green-900); border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); display: grid; grid-template-columns: 1fr 1.4fr; }
+    .waitlist-left { padding: 64px 48px; background: linear-gradient(160deg, var(--green-800) 0%, var(--green-900) 100%); }
+    .waitlist-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 20px; }
+    .waitlist-title { font-family: var(--font-display); font-size: clamp(26px, 3vw, 38px); font-weight: 700; line-height: 1.18; color: var(--white); margin-bottom: 18px; }
+    .waitlist-title em { font-style: italic; color: var(--green-200); }
+    .waitlist-desc { font-size: 15px; font-weight: 300; line-height: 1.7; color: rgba(216,240,228,0.72); margin-bottom: 40px; }
+    .waitlist-perks { display: flex; flex-direction: column; gap: 18px; }
+    .waitlist-perk { display: flex; align-items: flex-start; gap: 12px; }
+    .waitlist-perk-icon { font-size: 18px; flex-shrink: 0; }
+    .waitlist-perk-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+    .waitlist-perk-desc { font-size: 12.5px; color: rgba(216,240,228,0.60); font-weight: 300; line-height: 1.45; }
+    .waitlist-right { padding: 64px 48px; background: var(--white); }
+    .waitlist-form-title { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--text-900); margin-bottom: 6px; }
+    .waitlist-form-sub { font-size: 14px; font-weight: 300; color: var(--text-500); margin-bottom: 32px; line-height: 1.55; }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-label { font-size: 11.5px; font-weight: 600; letter-spacing: 0.04em; color: var(--text-700); }
+    .form-input { font-family: var(--font-body); font-size: 14px; font-weight: 400; padding: 11px 15px; border-radius: var(--radius-sm); border: 1.5px solid rgba(46,107,72,0.18); background: var(--cream); color: var(--text-900); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .form-input:focus { border-color: var(--green-500); box-shadow: 0 0 0 3px rgba(46,107,72,0.10); }
+    .form-input::placeholder { color: var(--text-300); }
+    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238aaa97' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; }
+    .form-textarea { resize: vertical; min-height: 90px; }
+    .form-submit { background: var(--green-700); color: var(--white); font-family: var(--font-body); font-size: 15px; font-weight: 600; padding: 14px 28px; border-radius: var(--radius-sm); border: none; cursor: pointer; letter-spacing: 0.02em; box-shadow: 0 4px 18px rgba(26,61,43,0.25); transition: background 0.2s, transform 0.15s, box-shadow 0.2s; align-self: flex-start; }
+    .form-submit:hover { background: var(--green-600); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(26,61,43,0.30); }
+    .form-note { font-size: 11.5px; color: var(--text-300); line-height: 1.5; }
+    .waitlist-success { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 32px 16px; gap: 18px; min-height: 400px; }
+    .waitlist-success-icon { font-size: 52px; }
+    .waitlist-success-title { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--text-900); }
+    .waitlist-success-desc { font-size: 15px; color: var(--text-500); font-weight: 300; line-height: 1.65; max-width: 320px; }
+
+    /* FOOTER */
+    .footer { background: var(--green-900); padding: 52px 5vw 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand-name { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .footer-brand-desc { font-size: 13px; font-weight: 300; line-height: 1.65; color: rgba(216,240,228,0.50); max-width: 280px; margin-bottom: 20px; }
+    .footer-brand-status { display: inline-flex; align-items: center; gap: 7px; background: rgba(184,146,42,0.15); border: 1px solid rgba(212,169,60,0.25); color: var(--gold-light); font-size: 10.5px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; }
+    .footer-brand-status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-light); animation: pulse 2s ease-in-out infinite; }
+    .footer-col-title { font-size: 11.5px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(216,240,228,0.40); margin-bottom: 18px; }
+    .footer-links { display: flex; flex-direction: column; gap: 11px; }
+    .footer-link { font-size: 13px; color: rgba(216,240,228,0.60); text-decoration: none; font-weight: 300; transition: color 0.2s; }
+    .footer-link:hover { color: var(--green-200); }
+    .footer-divider { height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 26px; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 12px; color: rgba(216,240,228,0.30); font-weight: 300; }
+    .footer-legal { display: flex; gap: 22px; }
+    .footer-legal a { font-size: 12px; color: rgba(216,240,228,0.30); text-decoration: none; font-weight: 300; transition: color 0.2s; }
+    .footer-legal a:hover { color: rgba(216,240,228,0.60); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-right { max-width: 560px; }
+      .founding-grid { grid-template-columns: 1fr 1fr; }
+      .pain-grid { grid-template-columns: 1fr 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .workflow-header { grid-template-columns: 1fr; gap: 40px; }
+      .savings-grid { grid-template-columns: 1fr; }
+      .waitlist-inner-wrap { grid-template-columns: 1fr; }
+      .waitlist-left { padding: 48px 40px; }
+      .waitlist-right { padding: 48px 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+    @media (max-width: 768px) {
+      .nav-mobile-hide { display: none; }
+      .announce-bar { gap: 8px; }
+      .announce-text { font-size: 11px; }
+      .founding-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-card-row { grid-template-columns: 1fr 1fr; }
+      .section { padding: 72px 5vw; }
+      .form-row { grid-template-columns: 1fr; }
+      .waitlist-left { padding: 40px 28px; }
+      .waitlist-right { padding: 40px 28px; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .hero-card-row { grid-template-columns: 1fr; }
+      .hero-countdown-num { font-size: 24px; }
+      .announce-link { display: none; }
+    }
+  `;
+
   return (
-    <style>{`
-      :root {
-        --bg: #f5fbf6;
-        --surface: #ffffff;
-        --surface-soft: #f8fafc;
-        --text: #0f172a;
-        --muted: #475569;
-        --line: #e2e8f0;
-        --green: #059669;
-        --green-dark: #065f46;
-        --green-soft: #d1fae5;
-        --navy: #0f172a;
-        --navy-soft: #172033;
-        --shadow: 0 22px 60px rgba(15, 23, 42, 0.08);
-        --shadow-soft: 0 14px 34px rgba(15, 23, 42, 0.06);
-        --radius-xl: 34px;
-        --radius-lg: 24px;
-        --radius-md: 18px;
-      }
+    <div className="sws-root">
+      <style>{styles}</style>
 
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body {
-        margin: 0;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(circle at top left, rgba(5, 150, 105, 0.10), transparent 28%),
-          linear-gradient(180deg, #f3fbf4 0%, #ffffff 24%);
-      }
-      a { color: inherit; text-decoration: none; }
-      button, input, textarea { font: inherit; }
+      {/* ANNOUNCEMENT BAR */}
+      <div className="announce-bar">
+        <div className="announce-pill">Coming Soon</div>
+        <div className="announce-text">
+          <strong>SwardSync launches in 2025.</strong> Founding member spots are limited — lock in early access pricing now.
+        </div>
+        <a href="#waitlist" className="announce-link">Join the waitlist →</a>
+      </div>
 
-      .page-shell { min-height: 100vh; }
-      .container {
-        width: min(1160px, calc(100% - 28px));
-        margin: 0 auto;
-      }
-      .section { padding: 92px 0; }
-      .section-tight { padding: 72px 0; }
-      .section-dark {
-        background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
-        color: white;
-      }
-      .section-soft {
-        background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-      }
-      .top-line { border-top: 1px solid var(--line); }
+      {/* NAV */}
+      <nav className="nav">
+        <a href="#" className="nav-brand">
+          <span className="nav-brand-name">SwardSync Systems</span>
+          <span className="nav-brand-sub">Lawn &amp; Landscape Software</span>
+        </a>
+        <div className="nav-mobile-hide">
+          <a href="#features" className="nav-link">Features</a>
+          <a href="#founding" className="nav-link">Early Access</a>
+          <a href="#workflow" className="nav-link">How It Works</a>
+          <a href="#waitlist" className="nav-cta">
+            <span className="nav-cta-dot" />
+            Join the Waitlist
+          </a>
+        </div>
+      </nav>
 
-      .header {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        backdrop-filter: blur(12px);
-        background: rgba(255, 255, 255, 0.84);
-        border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-      }
-      .header-inner {
-        min-height: 78px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-      }
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        min-width: 0;
-      }
-      .brand-badge {
-        width: 44px;
-        height: 44px;
-        border-radius: 16px;
-        display: grid;
-        place-items: center;
-        font-weight: 800;
-        font-size: 20px;
-        color: white;
-        background: linear-gradient(135deg, var(--green) 0%, #10b981 100%);
-        box-shadow: 0 14px 30px rgba(5, 150, 105, 0.24);
-        flex: 0 0 auto;
-      }
-      .brand-copy {
-        min-width: 0;
-      }
-      .brand-name {
-        font-size: 15px;
-        font-weight: 800;
-        line-height: 1.1;
-      }
-      .brand-sub {
-        font-size: 13px;
-        color: var(--muted);
-        margin-top: 4px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .nav {
-        display: flex;
-        align-items: center;
-        gap: 26px;
-        color: var(--muted);
-        font-weight: 600;
-        font-size: 14px;
-      }
-      .nav a:hover { color: var(--text); }
+      {/* HERO */}
+      <section className="hero">
+        <div className="hero-bg-pattern" />
+        <div className="hero-bg-lines" />
+        <div className="hero-inner">
+          <div>
+            <div className="hero-badge-row">
+              <div className="hero-badge"><span className="hero-badge-dot" />Launching 2025</div>
+              <div className="hero-badge-secondary">Early Access Open</div>
+            </div>
+            <h1 className="hero-headline">
+              Run a tighter operation.<br /><em>Keep more of what you earn.</em>
+            </h1>
+            <p className="hero-sub">
+              SwardSync is new software built specifically for lawn care and landscaping companies — smarter scheduling, better routing, informed crews, and cleaner daily operations. Built by people who understand your industry.
+            </p>
+            <div className="hero-capture">
+              {!heroSubmitted ? (
+                <>
+                  <form className="hero-capture-form" onSubmit={handleHeroSubmit}>
+                    <input className="hero-capture-input" type="email" placeholder="Enter your email to join the waitlist" value={email} onChange={e => setEmail(e.target.value)} />
+                    <button className="hero-capture-btn" type="submit">Get Early Access</button>
+                  </form>
+                  <div className="hero-capture-note">No spam. We'll notify you before we launch. Unsubscribe any time.</div>
+                </>
+              ) : (
+                <div className="hero-capture-success">
+                  <div className="hero-capture-success-icon">🌿</div>
+                  <div className="hero-capture-success-text"><strong>You're on the list.</strong> We'll be in touch before launch — watch your inbox.</div>
+                </div>
+              )}
+            </div>
+            <div className="hero-social-proof">
+              <div className="hero-proof-item">🔒 Founding pricing locked at signup</div>
+              <div className="hero-proof-item">⚡ First access when we go live</div>
+              <div className="hero-proof-item">💬 Shape the product before launch</div>
+            </div>
+          </div>
 
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 48px;
-        padding: 0 20px;
-        border-radius: 14px;
-        border: 1px solid transparent;
-        font-weight: 700;
-        transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
-      }
-      .button:hover { transform: translateY(-1px); }
-      .button-primary {
-        background: linear-gradient(135deg, var(--green) 0%, #10b981 100%);
-        color: white;
-        box-shadow: 0 14px 32px rgba(5, 150, 105, 0.20);
-      }
-      .button-primary:hover { background: linear-gradient(135deg, #047857 0%, #059669 100%); }
-      .button-dark {
-        background: var(--navy);
-        color: white;
-      }
-      .button-dark:hover { background: #1e293b; }
-      .button-outline {
-        background: rgba(255,255,255,0.88);
-        color: var(--text);
-        border-color: var(--line);
-      }
-      .button-outline:hover { background: white; }
-      .button-light {
-        background: white;
-        color: var(--green-dark);
-      }
-      .button-light:hover { background: #ecfdf5; }
-      .button-block { width: 100%; }
-
-      .hero {
-        padding: 72px 0 54px;
-      }
-      .hero-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-        gap: 34px;
-        align-items: center;
-      }
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 9px 14px;
-        border-radius: 999px;
-        background: rgba(209, 250, 229, 0.95);
-        color: var(--green-dark);
-        font-size: 13px;
-        font-weight: 800;
-        letter-spacing: 0.01em;
-      }
-      .pill::before {
-        content: "";
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: var(--green);
-        box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.15);
-      }
-      .hero-title {
-        margin: 20px 0 0;
-        font-size: clamp(2.55rem, 5vw, 5rem);
-        line-height: 0.97;
-        letter-spacing: -0.05em;
-        max-width: 11ch;
-      }
-      .hero-copy {
-        margin-top: 22px;
-        max-width: 58ch;
-        font-size: 1.1rem;
-        line-height: 1.82;
-        color: var(--muted);
-      }
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 30px;
-      }
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
-        margin-top: 34px;
-      }
-
-      .card {
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-soft);
-      }
-      .card-body { padding: 24px; }
-      .stat-card .card-body { padding: 22px; }
-      .stat-value {
-        font-size: 1.65rem;
-        font-weight: 800;
-        letter-spacing: -0.03em;
-      }
-      .stat-label {
-        margin-top: 8px;
-        color: var(--muted);
-        line-height: 1.65;
-        font-size: 14px;
-      }
-
-      .showcase {
-        position: relative;
-        padding: 18px;
-        border-radius: 34px;
-        background: linear-gradient(145deg, #0f172a 0%, #111827 100%);
-        box-shadow: 0 28px 70px rgba(15, 23, 42, 0.24);
-      }
-      .showcase::after {
-        content: "";
-        position: absolute;
-        inset: auto -18px -18px auto;
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(circle, rgba(16, 185, 129, 0.28), transparent 70%);
-        pointer-events: none;
-      }
-      .showcase-inner {
-        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-        border-radius: 28px;
-        padding: 18px;
-      }
-      .showcase-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-      .showcase-feature {
-        padding: 22px;
-        border-radius: 22px;
-        background: white;
-        border: 1px solid var(--line);
-      }
-      .showcase-feature.highlight {
-        background: linear-gradient(180deg, #ecfdf5 0%, #f0fdf4 100%);
-        border-color: #a7f3d0;
-      }
-      .showcase-kicker {
-        display: inline-block;
-        font-size: 12px;
-        font-weight: 800;
-        color: var(--green-dark);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-      .showcase-feature h3,
-      .content-card h3,
-      .step-card h3,
-      .saving-card h3,
-      .contact-card h3 {
-        font-size: 1.18rem;
-        line-height: 1.3;
-        letter-spacing: -0.02em;
-        margin: 0;
-      }
-      .showcase-feature p,
-      .content-card p,
-      .step-card p,
-      .saving-card p,
-      .contact-card p,
-      .contact-meta {
-        margin-top: 10px;
-        color: var(--muted);
-        line-height: 1.75;
-      }
-      .showcase-wide {
-        grid-column: 1 / -1;
-        background: #f8fafc;
-      }
-      .check-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: grid;
-        gap: 12px;
-      }
-      .check-list li {
-        position: relative;
-        padding-left: 22px;
-        color: #334155;
-        line-height: 1.65;
-      }
-      .check-list li::before {
-        content: "✓";
-        position: absolute;
-        left: 0;
-        top: 0;
-        font-weight: 800;
-        color: var(--green);
-      }
-
-      .section-head {
-        max-width: 760px;
-        margin-bottom: 34px;
-      }
-      .section-badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 8px 13px;
-        border-radius: 999px;
-        background: #e2e8f0;
-        color: #334155;
-        font-size: 13px;
-        font-weight: 800;
-      }
-      .section-badge.light {
-        background: rgba(255,255,255,0.10);
-        color: white;
-      }
-      .section-head h2 {
-        margin: 16px 0 0;
-        font-size: clamp(2rem, 3.5vw, 3.2rem);
-        line-height: 1.03;
-        letter-spacing: -0.045em;
-      }
-      .section-head p {
-        margin-top: 16px;
-        font-size: 1.02rem;
-      }
-      .section-dark .section-head p { color: #cbd5e1; }
-
-      .grid-4,
-      .grid-3 {
-        display: grid;
-        gap: 18px;
-      }
-      .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-      .content-card {
-        padding: 24px;
-        border-radius: 24px;
-        background: var(--surface);
-        border: 1px solid var(--line);
-        box-shadow: var(--shadow-soft);
-      }
-      .card-kicker {
-        display: inline-block;
-        margin-bottom: 10px;
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--green-dark);
-      }
-
-      .steps-wrap {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-      }
-      .step-card {
-        position: relative;
-        overflow: hidden;
-        padding: 24px;
-        border-radius: 24px;
-        background: white;
-        border: 1px solid var(--line);
-        box-shadow: var(--shadow-soft);
-      }
-      .step-number {
-        width: 54px;
-        height: 54px;
-        border-radius: 18px;
-        display: grid;
-        place-items: center;
-        font-size: 15px;
-        font-weight: 800;
-        color: var(--green-dark);
-        background: linear-gradient(180deg, #d1fae5 0%, #ecfdf5 100%);
-        margin-bottom: 16px;
-      }
-
-      .saving-card {
-        padding: 24px;
-        border-radius: 24px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.06);
-        box-shadow: none;
-      }
-      .saving-card h3 { color: white; }
-      .saving-card .check-list li { color: #cbd5e1; }
-      .saving-card .check-list li::before { color: #34d399; }
-
-      .cta-box {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 24px;
-        align-items: center;
-        padding: 40px;
-        border-radius: 32px;
-        background: linear-gradient(135deg, #059669 0%, #065f46 100%);
-        box-shadow: 0 24px 64px rgba(5, 150, 105, 0.24);
-        color: white;
-      }
-      .cta-box h2 {
-        margin: 14px 0 0;
-        font-size: clamp(2rem, 3.4vw, 3rem);
-        line-height: 1.02;
-        letter-spacing: -0.04em;
-      }
-      .cta-box p {
-        margin-top: 16px;
-        color: rgba(255,255,255,0.9);
-        max-width: 62ch;
-      }
-      .cta-badge {
-        display: inline-flex;
-        padding: 8px 13px;
-        border-radius: 999px;
-        background: rgba(255,255,255,0.16);
-        color: #dcfce7;
-        font-size: 13px;
-        font-weight: 800;
-      }
-
-      .contact-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-        gap: 20px;
-        align-items: start;
-      }
-      .contact-card,
-      .form-shell {
-        border-radius: 26px;
-        background: white;
-        border: 1px solid var(--line);
-        box-shadow: var(--shadow-soft);
-      }
-      .contact-card { padding: 28px; }
-      .contact-meta {
-        display: grid;
-        gap: 12px;
-        margin-top: 26px;
-        color: #334155;
-      }
-      .contact-meta strong { color: var(--text); }
-      .form-shell { overflow: hidden; }
-      .form-body {
-        padding: 26px;
-        display: grid;
-        gap: 16px;
-      }
-      .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-      .field {
-        width: 100%;
-        border: 1px solid #cbd5e1;
-        border-radius: 16px;
-        padding: 14px 16px;
-        background: white;
-        color: var(--text);
-        transition: border-color .18s ease, box-shadow .18s ease;
-      }
-      .field:focus {
-        outline: none;
-        border-color: #86efac;
-        box-shadow: 0 0 0 4px rgba(134, 239, 172, 0.18);
-      }
-      .form-note {
-        font-size: 13px;
-        color: #64748b;
-        line-height: 1.6;
-      }
-
-      @media (max-width: 1100px) {
-        .hero-grid,
-        .contact-grid,
-        .cta-box {
-          grid-template-columns: 1fr;
-        }
-        .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .grid-3,
-        .steps-wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      }
-
-      @media (max-width: 760px) {
-        .section { padding: 72px 0; }
-        .section-tight { padding: 56px 0; }
-        .nav { display: none; }
-        .header-inner { min-height: 72px; }
-        .stats,
-        .grid-4,
-        .grid-3,
-        .steps-wrap,
-        .showcase-grid,
-        .form-row {
-          grid-template-columns: 1fr;
-        }
-        .showcase-wide { grid-column: auto; }
-        .hero { padding-top: 44px; }
-        .hero-title { max-width: none; }
-      }
-
-      @media (max-width: 520px) {
-        .container { width: min(1160px, calc(100% - 18px)); }
-        .brand-sub,
-        .header .button-dark {
-          display: none;
-        }
-        .card-body,
-        .content-card,
-        .step-card,
-        .saving-card,
-        .contact-card,
-        .form-body,
-        .showcase-feature,
-        .showcase-inner,
-        .cta-box {
-          padding: 20px;
-        }
-        .hero-actions {
-          display: grid;
-          grid-template-columns: 1fr;
-        }
-        .button { width: 100%; }
-      }
-    `}</style>
-  );
-}
-
-function Header() {
-  return (
-    <header className="header">
-      <div className="container header-inner">
-        <div className="brand">
-          <div className="brand-badge">S</div>
-          <div className="brand-copy">
-            <div className="brand-name">SwardSync Systems</div>
-            <div className="brand-sub">Affordable software for lawn care operations</div>
+          <div className="hero-right">
+            <div className="hero-launch-box">
+              <div className="hero-launch-title">⏳ Estimated launch countdown</div>
+              <div className="hero-countdown-row">
+                {[['142','Days'],['06','Hours'],['34','Mins'],['18','Secs']].map(([n,l]) => (
+                  <div className="hero-countdown-cell" key={l}>
+                    <div className="hero-countdown-num">{n}</div>
+                    <div className="hero-countdown-label">{l}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="hero-countdown-divider" />
+              <div className="hero-launch-date">Targeting a <strong>Q3 2025 launch</strong>. Founding members get early access, locked-in pricing, and a direct line to the team during onboarding.</div>
+            </div>
+            <div className="hero-card-row">
+              {[
+                { icon:'📅', val:'2', unit:'hrs', label:'Daily admin time saved per office manager' },
+                { icon:'🗺️', val:'18', unit:'%', label:'Typical reduction in wasted drive time' },
+                { icon:'📋', val:'↓', unit:' rework', label:'Fewer revisits when crews are fully briefed' },
+                { icon:'💰', val:'1', unit:' tool', label:'Replace spreadsheets, texts, and paper' },
+              ].map(c => (
+                <div className="hero-card" key={c.label}>
+                  <div className="hero-card-icon">{c.icon}</div>
+                  <div className="hero-card-val">{c.val}<span>{c.unit}</span></div>
+                  <div className="hero-card-label">{c.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+      </section>
 
-        <nav className="nav">
-          <a href="#why">Why SwardSync</a>
-          <a href="#features">Features</a>
-          <a href="#savings">Savings</a>
-          <a href="#contact">Contact</a>
-        </nav>
-
-        <a className="button button-dark" href="#contact">Book a demo</a>
-      </div>
-    </header>
-  );
-}
-
-function Hero() {
-  return (
-    <section className="hero">
-      <div className="container hero-grid">
-        <div>
-          <div className="pill">Built for lawn care and landscaping companies</div>
-          <h1 className="hero-title">Run more efficiently, reduce wasted time, and lower operating costs.</h1>
-          <p className="hero-copy">
-            SwardSync Systems helps lawn care companies keep schedules tighter, routes cleaner, crews better informed, and daily operations easier to manage without paying for bloated software they do not need.
-          </p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="#contact">Request a demo</a>
-            <a className="button button-outline" href="#savings">See how it saves time</a>
+      {/* FOUNDING MEMBER */}
+      <section className="section founding" id="founding">
+        <div className="section-inner">
+          <div className="section-label">Early access pricing</div>
+          <h2 className="section-title">Founding member rates — <em>locked in for life</em></h2>
+          <p className="section-sub">Join before we launch and lock in discounted pricing that stays with you for as long as you use SwardSync. Spots in each tier are strictly limited.</p>
+          <div className="founding-grid">
+            {[
+              { tier:'Founding Starter', tierCls:'', name:'Starter', price:'£39', was:'£59', highlight:false,
+                perks:['Up to 2 crew members','Scheduling & job management','Customer & property records','Mobile crew access','Email support','Founding member badge'],
+                btnCls:'founding-btn-secondary', btnText:'Reserve Starter Spot →', spots:'40 spots remaining' },
+              { tier:'Founding Growth', tierCls:'founding-tier-gold', name:'Growth', price:'£79', was:'£129', highlight:true, ribbon:'Most Popular',
+                perks:['Up to 8 crew members','Everything in Starter','Smart route optimisation','Job photos & notes','Priority email & chat support','Early feature access','Founding pricing, forever'],
+                btnCls:'founding-btn-primary', btnText:'Reserve Growth Spot →', spots:'18 of 30 spots remaining' },
+              { tier:'Founding Scale', tierCls:'', name:'Scale', price:'£139', was:'£219', highlight:false,
+                perks:['Unlimited crew members','Everything in Growth','Multi-team scheduling','Advanced reporting','Dedicated onboarding call','Direct roadmap input','Founding pricing, forever'],
+                btnCls:'founding-btn-secondary', btnText:'Reserve Scale Spot →', spots:'12 spots remaining' },
+            ].map(plan => (
+              <div className={`founding-card ${plan.highlight ? 'founding-card-highlight' : ''}`} key={plan.name}>
+                {plan.ribbon && <div className="founding-card-ribbon">{plan.ribbon}</div>}
+                <div className={`founding-tier ${plan.tierCls}`}>{plan.tier}</div>
+                <div className="founding-name">{plan.name}</div>
+                <div className="founding-price-row">
+                  <div className="founding-price">{plan.price}</div>
+                  <div className="founding-price-meta">
+                    <div className="founding-price-period">/mo</div>
+                    <div className="founding-price-was">{plan.was}/mo at launch</div>
+                  </div>
+                </div>
+                <div className="founding-divider" />
+                <div className="founding-perks">{plan.perks.map(p => <div className="founding-perk" key={p}>{p}</div>)}</div>
+                <a href="#waitlist" className={`founding-btn ${plan.btnCls}`}>{plan.btnText}</a>
+                <div className="founding-spots"><strong>{plan.spots.split(' ')[0]}</strong> {plan.spots.split(' ').slice(1).join(' ')}</div>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <div className="stats">
-            {stats.map((item) => (
-              <div className="card stat-card" key={item.label}>
-                <div className="card-body">
-                  <div className="stat-value">{item.value}</div>
-                  <div className="stat-label">{item.label}</div>
+      {/* PAIN POINTS */}
+      <section className="section pain" id="pain">
+        <div className="section-inner">
+          <div className="section-label">Why we're building this</div>
+          <h2 className="section-title">Where lawn care businesses <em>lose time and money</em></h2>
+          <p className="section-sub">SwardSync is being built to address the most common inefficiencies in lawn care and landscaping operations — ones that compound quietly across every week.</p>
+          <div className="pain-grid">
+            {[
+              { icon:'📂', title:'Admin overload', desc:'Hours each week consumed by manual scheduling, confirmation chasing, and spreadsheets that no one else can navigate.' },
+              { icon:'🔄', title:'Route inefficiency', desc:'Crews zig-zag across the day, burning fuel and billable time with no intelligent grouping of nearby jobs.' },
+              { icon:'📡', title:'Poor office-to-field comms', desc:'Field crews miss updates. Offices don\'t know job status until day end. Issues fall through the gap in between.' },
+              { icon:'📝', title:'Missing job details', desc:'Gate codes, customer notes, and special instructions live in texts and inboxes — not with the crew doing the job.' },
+              { icon:'🔁', title:'Costly revisit work', desc:'When crews aren\'t fully briefed, mistakes happen. Revisit jobs quietly erode your margins and frustrate customers.' },
+              { icon:'🖥️', title:'Overcomplicated software', desc:'Enterprise platforms built for multi-trade contractors bring a learning curve and a price tag your business doesn\'t need.' },
+            ].map(item => (
+              <div className="pain-card" key={item.title}>
+                <div className="pain-icon">{item.icon}</div>
+                <div className="pain-title">{item.title}</div>
+                <div className="pain-desc">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="section features" id="features">
+        <div className="section-inner">
+          <div className="section-label">What's being built</div>
+          <h2 className="section-title">Everything your operation needs. <em>Nothing it doesn't.</em></h2>
+          <p className="section-sub">SwardSync is designed around the practical tools lawn care and landscaping businesses actually use every day.</p>
+          <div className="features-coming-note">🚧 In active development — founding members get early feature access and input on priorities</div>
+          <div className="features-grid">
+            {[
+              { num:'01', icon:'🗓️', title:'Flexible Scheduling', desc:'One-off and recurring jobs managed side by side. Set frequencies, block out dates, reschedule in seconds.' },
+              { num:'02', icon:'🗺️', title:'Smarter Routing', desc:'Automatically group and sequence nearby jobs to reduce drive time. Less fuel, more jobs per day.' },
+              { num:'03', icon:'🏡', title:'Customer & Property Records', desc:'Gate codes, access notes, service history, and preferences stored against each property — always accessible.' },
+              { num:'04', icon:'📱', title:'Mobile Crew Access', desc:'Crews see their full job list, property notes, and status updates on their phone. No printing or group chats.' },
+              { num:'05', icon:'✅', title:'Job Status Tracking', desc:'Track which jobs are scheduled, in-progress, or completed. Full visibility from a single screen.' },
+              { num:'06', icon:'📷', title:'Notes & Photo Records', desc:'Capture photos, on-site notes, and issue flags directly on the job. Records that protect you and inform customers.' },
+            ].map(f => (
+              <div className="feature-cell" key={f.num}>
+                <div className="feature-num">{f.num}</div>
+                <span className="feature-icon">{f.icon}</span>
+                <div className="feature-title">{f.title}</div>
+                <div className="feature-desc">{f.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WORKFLOW */}
+      <section className="section workflow" id="workflow">
+        <div className="section-inner">
+          <div className="workflow-header">
+            <div>
+              <div className="section-label">How it will work</div>
+              <h2 className="section-title">From morning dispatch <em>to final sign-off</em></h2>
+              <p className="section-sub">SwardSync will connect every part of your operation — office scheduling, field execution, and end-of-day follow-up — into one clean loop.</p>
+            </div>
+            <div className="workflow-visual-col">
+              {[
+                { icon:'🏢', title:'Office', desc:'Scheduling, customer management, and route planning from one dashboard.' },
+                { icon:'🌿', title:'Field', desc:'Crews get full job details and update status live from their phones.' },
+                { icon:'📊', title:'Follow-up', desc:'Photo records, notes, and logs keep every job properly closed out.' },
+              ].map(b => (
+                <div className="workflow-badge" key={b.title}>
+                  <div className="workflow-badge-icon">{b.icon}</div>
+                  <div>
+                    <div className="workflow-badge-title">{b.title}</div>
+                    <div className="workflow-badge-desc">{b.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="workflow-steps">
+            {[
+              { tag:'Morning — Office', num:'1', title:'Build and dispatch the day\'s schedule', desc:'Your office manager sets the schedule, groups nearby jobs, and sends each crew their full job list before they leave. No printed sheets, no phone calls.' },
+              { tag:'In the field — Crew', num:'2', title:'Crews arrive informed and ready to work', desc:'Each crew member opens the app and sees their jobs, property details, access notes, and customer preferences. First-time errors drop. Revisit work falls.' },
+              { tag:'Live — Office visibility', num:'3', title:'Track job progress without chasing anyone', desc:'The office sees job status update in real time as crews start and complete work. No status calls. No end-of-day scramble.' },
+              { tag:'Close of day — Records', num:'4', title:'Close every job with a proper record', desc:'Crews log notes and photos on completion. Every job closes with a clean record — useful for disputes, quality checks, and customer conversations.' },
+            ].map(s => (
+              <div className="workflow-step" key={s.num}>
+                <div className="workflow-step-num-col">
+                  <div className="workflow-step-num">{s.num}</div>
+                  <div className="workflow-step-line" />
+                </div>
+                <div className="workflow-step-body">
+                  <div className="workflow-step-tag">{s.tag}</div>
+                  <div className="workflow-step-title">{s.title}</div>
+                  <div className="workflow-step-desc">{s.desc}</div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="showcase">
-          <div className="showcase-inner">
-            <div className="showcase-grid">
-              <div className="showcase-feature highlight">
-                <div className="showcase-kicker">Scheduling</div>
-                <h3>Faster planning with less admin</h3>
-                <p>Keep the week more organised and reduce the time spent manually moving jobs around.</p>
+      {/* SAVINGS */}
+      <section className="section savings" id="savings">
+        <div className="savings-bg" />
+        <div className="section-inner" style={{ position:'relative', zIndex:2 }}>
+          <div className="section-label">Value &amp; cost efficiency</div>
+          <h2 className="section-title">Built to pay for itself — <em>from month one</em></h2>
+          <p className="section-sub">SwardSync is priced for lawn care and landscaping businesses — not large enterprise contractors. Focused tools, honest pricing, and real return for your scale.</p>
+          <div className="savings-grid">
+            {[
+              { icon:'⏱️', badge:'Office efficiency', title:'Reclaim hours from admin work', desc:'Manual scheduling, confirmation chasing, and spreadsheet upkeep quietly consume your office team. Centralised tools give those hours back.', items:['Faster daily schedule builds','No more manual status calls','Centralised customer and property records'] },
+              { icon:'🛣️', badge:'Crew productivity', title:'More jobs per crew, per day', desc:'Smarter route grouping and better upfront job briefing mean crews spend more time on-site and less time driving or asking questions.', items:['Reduced wasted travel between jobs','Fewer incomplete or incorrect visits','Crews briefed before they arrive'] },
+              { icon:'🛡️', badge:'Margin protection', title:'Cut the quiet costs that erode profit', desc:'Revisit jobs, fuel waste, poor records, and miscommunication are margin killers. SwardSync targets each one without adding complexity.', items:['Fewer costly revisit jobs','Lower fuel spend through better routing','Records that protect you in disputes'] },
+              { icon:'💵', badge:'Software cost', title:'Priced to fit your operation', desc:'Most field-service platforms are built and priced for multi-trade contractors. SwardSync is focused, affordable, and sized for your business — not theirs.', items:['No enterprise pricing for features you won\'t use','Transparent, straightforward pricing','Founding member rates locked in permanently'] },
+            ].map(c => (
+              <div className="savings-card" key={c.title}>
+                <div className="savings-card-head">
+                  <div className="savings-card-icon">{c.icon}</div>
+                  <div className="savings-card-badge">{c.badge}</div>
+                </div>
+                <div className="savings-card-title">{c.title}</div>
+                <div className="savings-card-desc">{c.desc}</div>
+                <div className="savings-list">{c.items.map(item => <div className="savings-list-item" key={item}>{item}</div>)}</div>
               </div>
-
-              <div className="showcase-feature">
-                <div className="showcase-kicker">Routing</div>
-                <h3>Tighter crew movement</h3>
-                <p>Reduce wasted travel time and help crews stay productive across the day.</p>
-              </div>
-
-              <div className="showcase-feature showcase-wide">
-                <div className="showcase-kicker">Operational control</div>
-                <ul className="check-list">
-                  <li>Keep job information organised and easy to access</li>
-                  <li>Give crews clearer direction before they arrive on site</li>
-                  <li>Track completed work and follow-up needs more clearly</li>
-                </ul>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function WhySection() {
-  return (
-    <section id="why" className="section section-soft">
-      <div className="container">
-        <div className="section-head">
-          <div className="section-badge">Why SwardSync</div>
-          <h2>Built around the places lawn care companies lose time, money, and margin</h2>
-          <p>
-            Operational costs do not only come from labour and fuel. They also come from disorganised schedules, poor job visibility, unnecessary travel, and constant back-and-forth between the office and the field. SwardSync is positioned as a more affordable, more focused alternative to heavier field service platforms.
-          </p>
-        </div>
-
-        <div className="grid-4">
-          {painPoints.map((item) => (
-            <div className="content-card" key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FeaturesSection() {
-  return (
-    <section id="features" className="section">
-      <div className="container">
-        <div className="section-head">
-          <div className="section-badge">Features</div>
-          <h2>The features that keep lawn care operations under control</h2>
-          <p>
-            SwardSync Systems focuses on the practical tools that help office teams stay organised and crews stay productive throughout the day.
-          </p>
-        </div>
-
-        <div className="grid-3">
-          {features.map((item) => (
-            <div className="content-card" key={item.title}>
-              <div className="card-kicker">{item.kicker}</div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WorkflowSection() {
-  return (
-    <section className="section section-tight">
-      <div className="container">
-        <div className="section-head">
-          <div className="section-badge">How it helps</div>
-          <h2>A simpler system for the office, the field, and the jobs in between</h2>
-          <p>
-            The goal is to make daily operations feel more controlled from the moment a job is planned to the moment the work is recorded and reviewed.
-          </p>
-        </div>
-
-        <div className="steps-wrap">
-          {steps.map((step) => (
-            <div className="step-card" key={step.number}>
-              <div className="step-number">{step.number}</div>
-              <h3>{step.title}</h3>
-              <p>{step.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SavingsSection() {
-  return (
-    <section id="savings" className="section section-dark">
-      <div className="container">
-        <div className="section-head">
-          <div className="section-badge light">Savings and value</div>
-          <h2>Reduce waste and get better value from your software</h2>
-          <p>
-            The goal is simple: reduce wasted time, improve coordination, and give lawn care businesses more control over daily work without forcing them into the cost and complexity of heavyweight platforms.
-          </p>
-        </div>
-
-        <div className="grid-3">
-          {savings.map((group) => (
-            <div className="saving-card" key={group.title}>
-              <h3>{group.title}</h3>
-              <ul className="check-list" style={{ marginTop: 16 }}>
-                {group.points.map((point) => (
-                  <li key={point}>{point}</li>
+      {/* WAITLIST */}
+      <section className="section waitlist" id="waitlist">
+        <div className="section-inner">
+          <div className="waitlist-inner-wrap">
+            <div className="waitlist-left">
+              <div className="waitlist-eyebrow">Join the waitlist</div>
+              <h2 className="waitlist-title">Get in early.<br /><em>Lock in your rate.</em></h2>
+              <p className="waitlist-desc">Register your interest and we'll reach out before launch with early access, founding member pricing, and onboarding support. No commitment required.</p>
+              <div className="waitlist-perks">
+                {[
+                  { icon:'🔐', title:'Founding member pricing', desc:'Lock in a discounted rate that stays with you for as long as you use SwardSync.' },
+                  { icon:'🚀', title:'First access at launch', desc:'Waitlist members get access before the public. No queue, no wait.' },
+                  { icon:'💬', title:'Shape the product', desc:'Your feedback directly influences what we build before and after launch.' },
+                  { icon:'🤝', title:'Dedicated onboarding', desc:'We\'ll get you set up and running — not left to figure it out alone.' },
+                ].map(p => (
+                  <div className="waitlist-perk" key={p.title}>
+                    <div className="waitlist-perk-icon">{p.icon}</div>
+                    <div>
+                      <div className="waitlist-perk-title">{p.title}</div>
+                      <div className="waitlist-perk-desc">{p.desc}</div>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CtaSection() {
-  return (
-    <section className="section">
-      <div className="container">
-        <div className="cta-box">
-          <div>
-            <div className="cta-badge">For growth-minded lawn care businesses</div>
-            <h2>Choose software that supports growth without unnecessary overhead</h2>
-            <p>
-              SwardSync Systems is designed to help lawn care companies run more efficiently, control costs, and get the operational tools they need in a more practical, more affordable package.
-            </p>
-          </div>
-          <a className="button button-light" href="#contact">Book a demo</a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ContactSection() {
-  return (
-    <section id="contact" className="section section-soft top-line">
-      <div className="container contact-grid">
-        <div className="contact-card">
-          <div className="section-badge">Contact</div>
-          <h3 style={{ marginTop: 16, fontSize: "2rem", lineHeight: 1.05, letterSpacing: "-0.04em" }}>
-            See how SwardSync can support your lawn care business
-          </h3>
-          <p>
-            Request a demo, join the early access list, or tell us where your operation is losing time and money today.
-          </p>
-
-          <div className="contact-meta">
-            <div><strong>Location:</strong> Leicester, United Kingdom</div>
-            <div><strong>Email:</strong> hello@swardsyncsystems.com</div>
-            <div><strong>Availability:</strong> Demos and early access enquiries</div>
-          </div>
-        </div>
-
-        <div className="form-shell">
-          <div className="form-body">
-            <div className="form-row">
-              <input className="field" type="text" placeholder="Your name" />
-              <input className="field" type="text" placeholder="Company name" />
-            </div>
-            <input className="field" type="email" placeholder="Email address" />
-            <input className="field" type="tel" placeholder="Phone number" />
-            <textarea className="field" rows="6" placeholder="Tell us where your business is losing time, money, or efficiency today."></textarea>
-            <button type="button" className="button button-dark button-block">Request a demo</button>
-            <div className="form-note">
-              This contact form is a demo placeholder and can be connected to your preferred form or CRM later.
+            <div className="waitlist-right">
+              {!waitlistSubmitted ? (
+                <>
+                  <div className="waitlist-form-title">Reserve your spot</div>
+                  <div className="waitlist-form-sub">Tell us about your operation and we'll follow up personally before launch.</div>
+                  <div className="contact-form">
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label className="form-label">First name</label>
+                        <input className="form-input" type="text" placeholder="Jane" value={waitlistForm.firstName} onChange={e => setWaitlistForm(f => ({...f, firstName: e.target.value}))} />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Last name</label>
+                        <input className="form-input" type="text" placeholder="Smith" value={waitlistForm.lastName} onChange={e => setWaitlistForm(f => ({...f, lastName: e.target.value}))} />
+                      </div>
+                    </div>
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label className="form-label">Company name</label>
+                        <input className="form-input" type="text" placeholder="Green Horizons Ltd" value={waitlistForm.company} onChange={e => setWaitlistForm(f => ({...f, company: e.target.value}))} />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Phone number</label>
+                        <input className="form-input" type="tel" placeholder="+44 7700 000000" value={waitlistForm.phone} onChange={e => setWaitlistForm(f => ({...f, phone: e.target.value}))} />
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Email address</label>
+                      <input className="form-input" type="email" placeholder="jane@company.com" value={waitlistForm.email} onChange={e => setWaitlistForm(f => ({...f, email: e.target.value}))} />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">How many crew members do you run?</label>
+                      <select className="form-input form-select" value={waitlistForm.size} onChange={e => setWaitlistForm(f => ({...f, size: e.target.value}))}>
+                        <option value="">Select crew size</option>
+                        <option>Just me (sole trader)</option>
+                        <option>2–3 crew members</option>
+                        <option>4–8 crew members</option>
+                        <option>9–15 crew members</option>
+                        <option>16+ crew members</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">What's your biggest operational challenge right now?</label>
+                      <textarea className="form-input form-textarea" placeholder="e.g. scheduling takes too long, crews miss job details, too much time on admin..." value={waitlistForm.note} onChange={e => setWaitlistForm(f => ({...f, note: e.target.value}))} />
+                    </div>
+                    <button className="form-submit" onClick={handleWaitlistSubmit}>Reserve My Spot →</button>
+                    <p className="form-note">No payment required. We'll never share your details. Unsubscribe any time.</p>
+                  </div>
+                </>
+              ) : (
+                <div className="waitlist-success">
+                  <div className="waitlist-success-icon">🌿</div>
+                  <div className="waitlist-success-title">You're on the list.</div>
+                  <div className="waitlist-success-desc">We'll be in touch personally before launch with your early access details and founding member pricing. Thank you for believing in what we're building.</div>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-export default function App() {
-  return (
-    <div className="page-shell">
-      <Styles />
-      <Header />
-      <Hero />
-      <WhySection />
-      <FeaturesSection />
-      <WorkflowSection />
-      <SavingsSection />
-      <CtaSection />
-      <ContactSection />
+      {/* FOOTER */}
+      <footer className="footer">
+        <div className="footer-inner">
+          <div className="footer-top">
+            <div>
+              <div className="footer-brand-name">SwardSync Systems</div>
+              <p className="footer-brand-desc">Affordable scheduling, routing, and crew management software built for lawn care and landscaping businesses. Launching 2025.</p>
+              <div className="footer-brand-status">
+                <span className="footer-brand-status-dot" />
+                Pre-launch — waitlist open
+              </div>
+            </div>
+            <div>
+              <div className="footer-col-title">The Product</div>
+              <div className="footer-links">
+                {[['Features','#features'],['How It Works','#workflow'],['Early Access Pricing','#founding'],['Join the Waitlist','#waitlist']].map(([l,h]) => <a href={h} className="footer-link" key={l}>{l}</a>)}
+              </div>
+            </div>
+            <div>
+              <div className="footer-col-title">Company</div>
+              <div className="footer-links">
+                {[['About Us','#'],['Our Roadmap','#'],['Contact','#waitlist'],['hello@swardsync.com','#']].map(([l,h]) => <a href={h} className="footer-link" key={l}>{l}</a>)}
+              </div>
+            </div>
+          </div>
+          <div className="footer-divider" />
+          <div className="footer-bottom">
+            <div className="footer-copy">© {new Date().getFullYear()} SwardSync Systems Ltd. All rights reserved.</div>
+            <div className="footer-legal">
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+              <a href="#">Cookie Policy</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
