@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SwardSyncLanding() {
   const [email, setEmail] = useState("");
@@ -13,6 +13,45 @@ export default function SwardSyncLanding() {
     size: "",
     note: "",
   });
+
+  const BETA_LAUNCH_DATE = new Date("2026-06-01T09:00:00");
+
+  const getCountdown = () => {
+    const now = new Date().getTime();
+    const target = BETA_LAUNCH_DATE.getTime();
+    const distance = target - now;
+
+    if (distance <= 0) {
+      return {
+        days: "000",
+        hours: "00",
+        mins: "00",
+        secs: "00",
+      };
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((distance / (1000 * 60)) % 60);
+    const secs = Math.floor((distance / 1000) % 60);
+
+    return {
+      days: String(days).padStart(3, "0"),
+      hours: String(hours).padStart(2, "0"),
+      mins: String(mins).padStart(2, "0"),
+      secs: String(secs).padStart(2, "0"),
+    };
+  };
+
+  const [countdown, setCountdown] = useState(getCountdown());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(getCountdown());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleHeroSubmit = (e) => {
     e.preventDefault();
@@ -65,6 +104,10 @@ export default function SwardSyncLanding() {
       overflow-x: hidden;
       scroll-behavior: smooth;
       background: var(--cream);
+    }
+
+    body {
+      margin: 0;
     }
 
     .sws-root {
@@ -404,7 +447,7 @@ export default function SwardSyncLanding() {
       <div className="announce-bar">
         <div className="announce-pill">Coming Soon</div>
         <div className="announce-text">
-          <strong>SwardSync launches in 2025.</strong> Join the waitlist for early access updates and launch news.
+          <strong>SwardSync beta launches in June 2026.</strong> Join the waitlist for early access updates and launch news.
         </div>
         <a href="#waitlist" className="announce-link">Join the waitlist →</a>
       </div>
@@ -430,7 +473,7 @@ export default function SwardSyncLanding() {
         <div className="hero-inner">
           <div>
             <div className="hero-badge-row">
-              <div className="hero-badge"><span className="hero-badge-dot" />Launching 2025</div>
+              <div className="hero-badge"><span className="hero-badge-dot" />Beta Launching June 2026</div>
               <div className="hero-badge-secondary">Early Access Open</div>
             </div>
             <h1 className="hero-headline">
@@ -474,7 +517,12 @@ export default function SwardSyncLanding() {
             <div className="hero-launch-box">
               <div className="hero-launch-title">⏳ Estimated launch countdown</div>
               <div className="hero-countdown-row">
-                {[["142", "Days"], ["06", "Hours"], ["34", "Mins"], ["18", "Secs"]].map(([n, l]) => (
+                {[
+                  [countdown.days, "Days"],
+                  [countdown.hours, "Hours"],
+                  [countdown.mins, "Mins"],
+                  [countdown.secs, "Secs"],
+                ].map(([n, l]) => (
                   <div className="hero-countdown-cell" key={l}>
                     <div className="hero-countdown-num">{n}</div>
                     <div className="hero-countdown-label">{l}</div>
@@ -483,7 +531,7 @@ export default function SwardSyncLanding() {
               </div>
               <div className="hero-countdown-divider" />
               <div className="hero-launch-date">
-                Targeting a <strong>Q3 2025 launch</strong>. Waitlist members get early access updates and a direct line to the team during onboarding.
+                Targeting a <strong>June 2026 beta launch</strong>. Waitlist members get early access updates and a direct line to the team during onboarding.
               </div>
             </div>
 
@@ -743,7 +791,7 @@ export default function SwardSyncLanding() {
             <div>
               <div className="footer-brand-name">SwardSync Systems</div>
               <p className="footer-brand-desc">
-                Affordable scheduling, routing, and crew management software built for lawn care and landscaping businesses. Launching 2025.
+                Affordable scheduling, routing, and crew management software built for lawn care and landscaping businesses. Beta launching June 2026.
               </p>
               <div className="footer-brand-status">
                 <span className="footer-brand-status-dot" />
