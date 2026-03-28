@@ -14,7 +14,7 @@ export default function SwardSyncLanding() {
     note: "",
   });
 
-  const BETA_LAUNCH_DATE = new Date("2026-06-01T09:00:00");
+  const BETA_LAUNCH_DATE = new Date("2026-09-01T09:00:00");
 
   const getCountdown = () => {
     const now = new Date().getTime();
@@ -447,7 +447,7 @@ export default function SwardSyncLanding() {
       <div className="announce-bar">
         <div className="announce-pill">Coming Soon</div>
         <div className="announce-text">
-          <strong>SwardSync beta launches in June 2026.</strong> Join the waitlist for early access updates and launch news.
+          <strong>SwardSync beta launches in September 2026.</strong> Join the waitlist for early access updates and launch news.
         </div>
         <a href="#waitlist" className="announce-link">Join the waitlist →</a>
       </div>
@@ -473,7 +473,7 @@ export default function SwardSyncLanding() {
         <div className="hero-inner">
           <div>
             <div className="hero-badge-row">
-              <div className="hero-badge"><span className="hero-badge-dot" />Beta Launching June 2026</div>
+              <div className="hero-badge"><span className="hero-badge-dot" />Beta Launching September 2026</div>
               <div className="hero-badge-secondary">Early Access Open</div>
             </div>
             <h1 className="hero-headline">
@@ -531,7 +531,7 @@ export default function SwardSyncLanding() {
               </div>
               <div className="hero-countdown-divider" />
               <div className="hero-launch-date">
-                Targeting a <strong>June 2026 beta launch</strong>. Waitlist members get early access updates and a direct line to the team during onboarding.
+                Targeting a <strong>September 2026 beta launch</strong>. Waitlist members get early access updates and a direct line to the team during onboarding.
               </div>
             </div>
 
@@ -791,7 +791,7 @@ export default function SwardSyncLanding() {
             <div>
               <div className="footer-brand-name">SwardSync Systems</div>
               <p className="footer-brand-desc">
-                Affordable scheduling, routing, and crew management software built for lawn care and landscaping businesses. Beta launching June 2026.
+                Affordable scheduling, routing, and crew management software built for lawn care and landscaping businesses. Beta launching September 2026.
               </p>
               <div className="footer-brand-status">
                 <span className="footer-brand-status-dot" />
