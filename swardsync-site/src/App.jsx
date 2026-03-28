@@ -4,7 +4,15 @@ export default function SwardSyncLanding() {
   const [email, setEmail] = useState("");
   const [heroSubmitted, setHeroSubmitted] = useState(false);
   const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
-  const [waitlistForm, setWaitlistForm] = useState({ firstName: "", lastName: "", company: "", phone: "", email: "", size: "", note: "" });
+  const [waitlistForm, setWaitlistForm] = useState({
+    firstName: "",
+    lastName: "",
+    company: "",
+    phone: "",
+    email: "",
+    size: "",
+    note: "",
+  });
 
   const handleHeroSubmit = (e) => {
     e.preventDefault();
@@ -51,9 +59,17 @@ export default function SwardSyncLanding() {
       --font-body: 'DM Sans', system-ui, sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
+    html, body, #root {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background: var(--cream);
+    }
 
     .sws-root {
+      width: 100%;
+      min-height: 100vh;
       font-family: var(--font-body);
       background: var(--cream);
       color: var(--text-900);
@@ -63,7 +79,7 @@ export default function SwardSyncLanding() {
     /* ANNOUNCEMENT BAR */
     .announce-bar {
       background: linear-gradient(90deg, var(--green-900) 0%, var(--green-700) 50%, var(--green-800) 100%);
-      padding: 9px 5vw;
+      padding: 9px 4vw;
       display: flex; align-items: center; justify-content: center; gap: 12px;
       position: fixed; top: 0; left: 0; right: 0; z-index: 101;
     }
@@ -88,7 +104,7 @@ export default function SwardSyncLanding() {
     .nav {
       position: fixed; top: 38px; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5vw; height: 64px;
+      padding: 0 4vw; height: 64px;
       background: rgba(250,249,246,0.93);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(46,107,72,0.10);
@@ -118,9 +134,10 @@ export default function SwardSyncLanding() {
     .hero {
       min-height: 100vh;
       display: flex; flex-direction: column; justify-content: center;
-      padding: 140px 5vw 72px;
+      padding: 140px 4vw 72px;
       background: linear-gradient(160deg, var(--green-900) 0%, var(--green-700) 55%, var(--green-600) 100%);
       position: relative; overflow: hidden;
+      width: 100%;
     }
     .hero-bg-pattern {
       position: absolute; inset: 0; pointer-events: none;
@@ -134,9 +151,9 @@ export default function SwardSyncLanding() {
     }
     .hero-inner {
       position: relative; z-index: 2;
-      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      display: grid; grid-template-columns: 1.08fr 0.92fr;
       gap: 64px; align-items: center;
-      max-width: 1200px; margin: 0 auto; width: 100%;
+      max-width: 1440px; margin: 0 auto; width: 100%;
     }
     .hero-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
     .hero-badge {
@@ -163,13 +180,13 @@ export default function SwardSyncLanding() {
     .hero-headline em { font-style: italic; color: var(--green-200); }
     .hero-sub {
       font-size: 16.5px; font-weight: 300; line-height: 1.72;
-      color: rgba(216,240,228,0.82); max-width: 500px; margin-bottom: 36px;
+      color: rgba(216,240,228,0.82); max-width: 560px; margin-bottom: 36px;
     }
     .hero-capture { margin-bottom: 28px; }
     .hero-capture-form {
       display: flex; align-items: stretch;
       background: rgba(255,255,255,0.10); border: 1.5px solid rgba(255,255,255,0.20);
-      border-radius: var(--radius-sm); overflow: hidden; max-width: 460px;
+      border-radius: var(--radius-sm); overflow: hidden; max-width: 520px;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .hero-capture-form:focus-within { border-color: rgba(255,255,255,0.40); box-shadow: 0 0 0 4px rgba(255,255,255,0.06); }
@@ -180,7 +197,7 @@ export default function SwardSyncLanding() {
     .hero-capture-success {
       display: flex; align-items: center; gap: 10px;
       background: rgba(90,173,126,0.18); border: 1.5px solid rgba(90,173,126,0.35);
-      border-radius: var(--radius-sm); padding: 13px 18px; max-width: 460px;
+      border-radius: var(--radius-sm); padding: 13px 18px; max-width: 520px;
     }
     .hero-capture-success-icon { font-size: 18px; }
     .hero-capture-success-text { font-size: 14px; color: var(--green-100); font-weight: 400; line-height: 1.4; }
@@ -211,41 +228,13 @@ export default function SwardSyncLanding() {
     .hero-card-label { font-size: 11px; font-weight: 400; color: var(--green-200); line-height: 1.4; }
 
     /* SECTION */
-    .section { padding: 96px 5vw; }
-    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section { padding: 96px 4vw; width: 100%; }
+    .section-inner { max-width: 1440px; margin: 0 auto; width: 100%; }
     .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-500); margin-bottom: 16px; }
     .section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--green-400); border-radius: 2px; }
     .section-title { font-family: var(--font-display); font-size: clamp(28px, 3.5vw, 46px); font-weight: 700; line-height: 1.15; color: var(--text-900); margin-bottom: 16px; letter-spacing: -0.01em; }
     .section-title em { font-style: italic; color: var(--green-500); }
-    .section-sub { font-size: 17px; font-weight: 300; line-height: 1.7; color: var(--text-500); max-width: 600px; }
-
-    /* FOUNDING MEMBER */
-    .founding { background: var(--cream); }
-    .founding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; }
-    .founding-card { background: var(--white); border: 1px solid rgba(46,107,72,0.12); border-radius: var(--radius-lg); padding: 36px 28px; position: relative; overflow: hidden; transition: box-shadow 0.25s, transform 0.25s; }
-    .founding-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
-    .founding-card-highlight { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), var(--shadow-md); }
-    .founding-card-highlight:hover { box-shadow: 0 0 0 1px var(--gold), var(--shadow-lg); }
-    .founding-card-ribbon { position: absolute; top: 18px; right: -10px; background: var(--gold); color: var(--green-900); font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 20px 4px 12px; border-radius: 2px 0 0 2px; }
-    .founding-tier { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-500); margin-bottom: 10px; }
-    .founding-tier-gold { color: var(--gold); }
-    .founding-name { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--text-900); margin-bottom: 6px; }
-    .founding-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 20px; }
-    .founding-price { font-family: var(--font-display); font-size: 42px; font-weight: 700; color: var(--green-700); line-height: 1; }
-    .founding-price-meta { display: flex; flex-direction: column; gap: 2px; }
-    .founding-price-period { font-size: 14px; color: var(--text-500); font-weight: 300; }
-    .founding-price-was { font-size: 13px; color: var(--text-300); font-weight: 300; text-decoration: line-through; }
-    .founding-divider { height: 1px; background: rgba(46,107,72,0.10); margin: 20px 0; }
-    .founding-perks { display: flex; flex-direction: column; gap: 11px; margin-bottom: 28px; }
-    .founding-perk { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--text-700); font-weight: 400; line-height: 1.45; }
-    .founding-perk::before { content: '✓'; color: var(--green-400); font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
-    .founding-btn { width: 100%; font-family: var(--font-body); font-size: 14px; font-weight: 600; padding: 13px 20px; border-radius: var(--radius-sm); cursor: pointer; letter-spacing: 0.02em; transition: all 0.2s; border: none; text-align: center; display: block; text-decoration: none; }
-    .founding-btn-primary { background: var(--green-700); color: var(--white); box-shadow: 0 3px 14px rgba(26,61,43,0.25); }
-    .founding-btn-primary:hover { background: var(--green-600); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,61,43,0.30); }
-    .founding-btn-secondary { background: transparent; color: var(--green-600); border: 1.5px solid rgba(46,107,72,0.28) !important; }
-    .founding-btn-secondary:hover { border-color: var(--green-500) !important; background: var(--green-50); }
-    .founding-spots { margin-top: 12px; font-size: 12px; text-align: center; color: var(--text-300); }
-    .founding-spots strong { color: var(--gold); }
+    .section-sub { font-size: 17px; font-weight: 300; line-height: 1.7; color: var(--text-500); max-width: 700px; }
 
     /* PAIN */
     .pain { background: var(--white); }
@@ -276,7 +265,6 @@ export default function SwardSyncLanding() {
     /* WORKFLOW */
     .workflow { background: var(--cream); }
     .workflow-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 72px; }
-    .workflow-steps {}
     .workflow-step { display: grid; grid-template-columns: 80px 1fr; gap: 0; align-items: start; }
     .workflow-step-num-col { display: flex; flex-direction: column; align-items: center; }
     .workflow-step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--green-700); color: var(--white); font-family: var(--font-display); font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 0 6px rgba(46,107,72,0.12); }
@@ -313,7 +301,15 @@ export default function SwardSyncLanding() {
 
     /* WAITLIST */
     .waitlist { background: var(--cream); }
-    .waitlist-inner-wrap { background: var(--green-900); border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl); display: grid; grid-template-columns: 1fr 1.4fr; }
+    .waitlist-inner-wrap {
+      background: var(--green-900);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      width: 100%;
+    }
     .waitlist-left { padding: 64px 48px; background: linear-gradient(160deg, var(--green-800) 0%, var(--green-900) 100%); }
     .waitlist-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 20px; }
     .waitlist-title { font-family: var(--font-display); font-size: clamp(26px, 3vw, 38px); font-weight: 700; line-height: 1.18; color: var(--white); margin-bottom: 18px; }
@@ -331,7 +327,7 @@ export default function SwardSyncLanding() {
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .form-group { display: flex; flex-direction: column; gap: 5px; }
     .form-label { font-size: 11.5px; font-weight: 600; letter-spacing: 0.04em; color: var(--text-700); }
-    .form-input { font-family: var(--font-body); font-size: 14px; font-weight: 400; padding: 11px 15px; border-radius: var(--radius-sm); border: 1.5px solid rgba(46,107,72,0.18); background: var(--cream); color: var(--text-900); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .form-input { font-family: var(--font-body); font-size: 14px; font-weight: 400; padding: 11px 15px; border-radius: var(--radius-sm); border: 1.5px solid rgba(46,107,72,0.18); background: var(--cream); color: var(--text-900); outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; }
     .form-input:focus { border-color: var(--green-500); box-shadow: 0 0 0 3px rgba(46,107,72,0.10); }
     .form-input::placeholder { color: var(--text-300); }
     .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238aaa97' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; }
@@ -345,11 +341,11 @@ export default function SwardSyncLanding() {
     .waitlist-success-desc { font-size: 15px; color: var(--text-500); font-weight: 300; line-height: 1.65; max-width: 320px; }
 
     /* FOOTER */
-    .footer { background: var(--green-900); padding: 52px 5vw 32px; }
-    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer { background: var(--green-900); padding: 52px 4vw 32px; width: 100%; }
+    .footer-inner { max-width: 1440px; margin: 0 auto; width: 100%; }
     .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
     .footer-brand-name { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-    .footer-brand-desc { font-size: 13px; font-weight: 300; line-height: 1.65; color: rgba(216,240,228,0.50); max-width: 280px; margin-bottom: 20px; }
+    .footer-brand-desc { font-size: 13px; font-weight: 300; line-height: 1.65; color: rgba(216,240,228,0.50); max-width: 320px; margin-bottom: 20px; }
     .footer-brand-status { display: inline-flex; align-items: center; gap: 7px; background: rgba(184,146,42,0.15); border: 1px solid rgba(212,169,60,0.25); color: var(--gold-light); font-size: 10.5px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; }
     .footer-brand-status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-light); animation: pulse 2s ease-in-out infinite; }
     .footer-col-title { font-size: 11.5px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(216,240,228,0.40); margin-bottom: 18px; }
@@ -364,10 +360,9 @@ export default function SwardSyncLanding() {
     .footer-legal a:hover { color: rgba(216,240,228,0.60); }
 
     /* RESPONSIVE */
-    @media (max-width: 1024px) {
+    @media (max-width: 1200px) {
       .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-      .hero-right { max-width: 560px; }
-      .founding-grid { grid-template-columns: 1fr 1fr; }
+      .hero-right { max-width: 700px; }
       .pain-grid { grid-template-columns: 1fr 1fr; }
       .features-grid { grid-template-columns: 1fr 1fr; }
       .workflow-header { grid-template-columns: 1fr; gap: 40px; }
@@ -377,25 +372,28 @@ export default function SwardSyncLanding() {
       .waitlist-right { padding: 48px 40px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
     }
+
     @media (max-width: 768px) {
       .nav-mobile-hide { display: none; }
       .announce-bar { gap: 8px; }
       .announce-text { font-size: 11px; }
-      .founding-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
       .pain-grid { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: 1fr; }
       .hero-card-row { grid-template-columns: 1fr 1fr; }
-      .section { padding: 72px 5vw; }
+      .section { padding: 72px 4vw; }
       .form-row { grid-template-columns: 1fr; }
       .waitlist-left { padding: 40px 28px; }
       .waitlist-right { padding: 40px 28px; }
       .footer-top { grid-template-columns: 1fr; gap: 28px; }
       .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
+
     @media (max-width: 480px) {
       .hero-card-row { grid-template-columns: 1fr; }
       .hero-countdown-num { font-size: 24px; }
       .announce-link { display: none; }
+      .hero-capture-form { flex-direction: column; max-width: 100%; }
+      .hero-capture-btn { width: 100%; }
     }
   `;
 
@@ -403,16 +401,14 @@ export default function SwardSyncLanding() {
     <div className="sws-root">
       <style>{styles}</style>
 
-      {/* ANNOUNCEMENT BAR */}
       <div className="announce-bar">
         <div className="announce-pill">Coming Soon</div>
         <div className="announce-text">
-          <strong>SwardSync launches in 2025.</strong> Founding member spots are limited — lock in early access pricing now.
+          <strong>SwardSync launches in 2025.</strong> Join the waitlist for early access updates and launch news.
         </div>
         <a href="#waitlist" className="announce-link">Join the waitlist →</a>
       </div>
 
-      {/* NAV */}
       <nav className="nav">
         <a href="#" className="nav-brand">
           <span className="nav-brand-name">SwardSync Systems</span>
@@ -420,7 +416,6 @@ export default function SwardSyncLanding() {
         </a>
         <div className="nav-mobile-hide">
           <a href="#features" className="nav-link">Features</a>
-          <a href="#founding" className="nav-link">Early Access</a>
           <a href="#workflow" className="nav-link">How It Works</a>
           <a href="#waitlist" className="nav-cta">
             <span className="nav-cta-dot" />
@@ -429,7 +424,6 @@ export default function SwardSyncLanding() {
         </div>
       </nav>
 
-      {/* HERO */}
       <section className="hero">
         <div className="hero-bg-pattern" />
         <div className="hero-bg-lines" />
@@ -443,13 +437,19 @@ export default function SwardSyncLanding() {
               Run a tighter operation.<br /><em>Keep more of what you earn.</em>
             </h1>
             <p className="hero-sub">
-              SwardSync is new software built specifically for lawn care and landscaping companies — smarter scheduling, better routing, informed crews, and cleaner daily operations. Built by people who understand your industry.
+              SwardSync is new software built specifically for lawn care and landscaping companies — smarter scheduling, better routing, informed crews, and cleaner daily operations.
             </p>
             <div className="hero-capture">
               {!heroSubmitted ? (
                 <>
                   <form className="hero-capture-form" onSubmit={handleHeroSubmit}>
-                    <input className="hero-capture-input" type="email" placeholder="Enter your email to join the waitlist" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input
+                      className="hero-capture-input"
+                      type="email"
+                      placeholder="Enter your email to join the waitlist"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                     <button className="hero-capture-btn" type="submit">Get Early Access</button>
                   </form>
                   <div className="hero-capture-note">No spam. We'll notify you before we launch. Unsubscribe any time.</div>
@@ -457,14 +457,16 @@ export default function SwardSyncLanding() {
               ) : (
                 <div className="hero-capture-success">
                   <div className="hero-capture-success-icon">🌿</div>
-                  <div className="hero-capture-success-text"><strong>You're on the list.</strong> We'll be in touch before launch — watch your inbox.</div>
+                  <div className="hero-capture-success-text">
+                    <strong>You're on the list.</strong> We'll be in touch before launch — watch your inbox.
+                  </div>
                 </div>
               )}
             </div>
             <div className="hero-social-proof">
-              <div className="hero-proof-item">🔒 Founding pricing locked at signup</div>
-              <div className="hero-proof-item">⚡ First access when we go live</div>
+              <div className="hero-proof-item">⚡ Early access updates before launch</div>
               <div className="hero-proof-item">💬 Shape the product before launch</div>
+              <div className="hero-proof-item">🤝 Direct onboarding support when we go live</div>
             </div>
           </div>
 
@@ -472,7 +474,7 @@ export default function SwardSyncLanding() {
             <div className="hero-launch-box">
               <div className="hero-launch-title">⏳ Estimated launch countdown</div>
               <div className="hero-countdown-row">
-                {[['142','Days'],['06','Hours'],['34','Mins'],['18','Secs']].map(([n,l]) => (
+                {[["142", "Days"], ["06", "Hours"], ["34", "Mins"], ["18", "Secs"]].map(([n, l]) => (
                   <div className="hero-countdown-cell" key={l}>
                     <div className="hero-countdown-num">{n}</div>
                     <div className="hero-countdown-label">{l}</div>
@@ -480,15 +482,18 @@ export default function SwardSyncLanding() {
                 ))}
               </div>
               <div className="hero-countdown-divider" />
-              <div className="hero-launch-date">Targeting a <strong>Q3 2025 launch</strong>. Founding members get early access, locked-in pricing, and a direct line to the team during onboarding.</div>
+              <div className="hero-launch-date">
+                Targeting a <strong>Q3 2025 launch</strong>. Waitlist members get early access updates and a direct line to the team during onboarding.
+              </div>
             </div>
+
             <div className="hero-card-row">
               {[
-                { icon:'📅', val:'2', unit:'hrs', label:'Daily admin time saved per office manager' },
-                { icon:'🗺️', val:'18', unit:'%', label:'Typical reduction in wasted drive time' },
-                { icon:'📋', val:'↓', unit:' rework', label:'Fewer revisits when crews are fully briefed' },
-                { icon:'💰', val:'1', unit:' tool', label:'Replace spreadsheets, texts, and paper' },
-              ].map(c => (
+                { icon: "📅", val: "2", unit: "hrs", label: "Daily admin time saved per office manager" },
+                { icon: "🗺️", val: "18", unit: "%", label: "Typical reduction in wasted drive time" },
+                { icon: "📋", val: "↓", unit: " rework", label: "Fewer revisits when crews are fully briefed" },
+                { icon: "💰", val: "1", unit: " tool", label: "Replace spreadsheets, texts, and paper" },
+              ].map((c) => (
                 <div className="hero-card" key={c.label}>
                   <div className="hero-card-icon">{c.icon}</div>
                   <div className="hero-card-val">{c.val}<span>{c.unit}</span></div>
@@ -500,60 +505,22 @@ export default function SwardSyncLanding() {
         </div>
       </section>
 
-      {/* FOUNDING MEMBER */}
-      <section className="section founding" id="founding">
-        <div className="section-inner">
-          <div className="section-label">Early access pricing</div>
-          <h2 className="section-title">Founding member rates — <em>locked in for life</em></h2>
-          <p className="section-sub">Join before we launch and lock in discounted pricing that stays with you for as long as you use SwardSync. Spots in each tier are strictly limited.</p>
-          <div className="founding-grid">
-            {[
-              { tier:'Founding Starter', tierCls:'', name:'Starter', price:'£39', was:'£59', highlight:false,
-                perks:['Up to 2 crew members','Scheduling & job management','Customer & property records','Mobile crew access','Email support','Founding member badge'],
-                btnCls:'founding-btn-secondary', btnText:'Reserve Starter Spot →', spots:'40 spots remaining' },
-              { tier:'Founding Growth', tierCls:'founding-tier-gold', name:'Growth', price:'£79', was:'£129', highlight:true, ribbon:'Most Popular',
-                perks:['Up to 8 crew members','Everything in Starter','Smart route optimisation','Job photos & notes','Priority email & chat support','Early feature access','Founding pricing, forever'],
-                btnCls:'founding-btn-primary', btnText:'Reserve Growth Spot →', spots:'18 of 30 spots remaining' },
-              { tier:'Founding Scale', tierCls:'', name:'Scale', price:'£139', was:'£219', highlight:false,
-                perks:['Unlimited crew members','Everything in Growth','Multi-team scheduling','Advanced reporting','Dedicated onboarding call','Direct roadmap input','Founding pricing, forever'],
-                btnCls:'founding-btn-secondary', btnText:'Reserve Scale Spot →', spots:'12 spots remaining' },
-            ].map(plan => (
-              <div className={`founding-card ${plan.highlight ? 'founding-card-highlight' : ''}`} key={plan.name}>
-                {plan.ribbon && <div className="founding-card-ribbon">{plan.ribbon}</div>}
-                <div className={`founding-tier ${plan.tierCls}`}>{plan.tier}</div>
-                <div className="founding-name">{plan.name}</div>
-                <div className="founding-price-row">
-                  <div className="founding-price">{plan.price}</div>
-                  <div className="founding-price-meta">
-                    <div className="founding-price-period">/mo</div>
-                    <div className="founding-price-was">{plan.was}/mo at launch</div>
-                  </div>
-                </div>
-                <div className="founding-divider" />
-                <div className="founding-perks">{plan.perks.map(p => <div className="founding-perk" key={p}>{p}</div>)}</div>
-                <a href="#waitlist" className={`founding-btn ${plan.btnCls}`}>{plan.btnText}</a>
-                <div className="founding-spots"><strong>{plan.spots.split(' ')[0]}</strong> {plan.spots.split(' ').slice(1).join(' ')}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PAIN POINTS */}
       <section className="section pain" id="pain">
         <div className="section-inner">
           <div className="section-label">Why we're building this</div>
           <h2 className="section-title">Where lawn care businesses <em>lose time and money</em></h2>
-          <p className="section-sub">SwardSync is being built to address the most common inefficiencies in lawn care and landscaping operations — ones that compound quietly across every week.</p>
+          <p className="section-sub">
+            SwardSync is being built to address the most common inefficiencies in lawn care and landscaping operations — ones that compound quietly across every week.
+          </p>
           <div className="pain-grid">
             {[
-              { icon:'📂', title:'Admin overload', desc:'Hours each week consumed by manual scheduling, confirmation chasing, and spreadsheets that no one else can navigate.' },
-              { icon:'🔄', title:'Route inefficiency', desc:'Crews zig-zag across the day, burning fuel and billable time with no intelligent grouping of nearby jobs.' },
-              { icon:'📡', title:'Poor office-to-field comms', desc:'Field crews miss updates. Offices don\'t know job status until day end. Issues fall through the gap in between.' },
-              { icon:'📝', title:'Missing job details', desc:'Gate codes, customer notes, and special instructions live in texts and inboxes — not with the crew doing the job.' },
-              { icon:'🔁', title:'Costly revisit work', desc:'When crews aren\'t fully briefed, mistakes happen. Revisit jobs quietly erode your margins and frustrate customers.' },
-              { icon:'🖥️', title:'Overcomplicated software', desc:'Enterprise platforms built for multi-trade contractors bring a learning curve and a price tag your business doesn\'t need.' },
-            ].map(item => (
+              { icon: "📂", title: "Admin overload", desc: "Hours each week consumed by manual scheduling, confirmation chasing, and spreadsheets that no one else can navigate." },
+              { icon: "🔄", title: "Route inefficiency", desc: "Crews zig-zag across the day, burning fuel and billable time with no intelligent grouping of nearby jobs." },
+              { icon: "📡", title: "Poor office-to-field comms", desc: "Field crews miss updates. Offices don’t know job status until day end. Issues fall through the gap in between." },
+              { icon: "📝", title: "Missing job details", desc: "Gate codes, customer notes, and special instructions live in texts and inboxes — not with the crew doing the job." },
+              { icon: "🔁", title: "Costly revisit work", desc: "When crews aren’t fully briefed, mistakes happen. Revisit jobs quietly erode your margins and frustrate customers." },
+              { icon: "🖥️", title: "Overcomplicated software", desc: "Enterprise platforms built for multi-trade contractors bring a learning curve and a price tag your business doesn’t need." },
+            ].map((item) => (
               <div className="pain-card" key={item.title}>
                 <div className="pain-icon">{item.icon}</div>
                 <div className="pain-title">{item.title}</div>
@@ -564,22 +531,23 @@ export default function SwardSyncLanding() {
         </div>
       </section>
 
-      {/* FEATURES */}
       <section className="section features" id="features">
         <div className="section-inner">
           <div className="section-label">What's being built</div>
           <h2 className="section-title">Everything your operation needs. <em>Nothing it doesn't.</em></h2>
-          <p className="section-sub">SwardSync is designed around the practical tools lawn care and landscaping businesses actually use every day.</p>
-          <div className="features-coming-note">🚧 In active development — founding members get early feature access and input on priorities</div>
+          <p className="section-sub">
+            SwardSync is designed around the practical tools lawn care and landscaping businesses actually use every day.
+          </p>
+          <div className="features-coming-note">🚧 In active development — waitlist members get early updates and product news</div>
           <div className="features-grid">
             {[
-              { num:'01', icon:'🗓️', title:'Flexible Scheduling', desc:'One-off and recurring jobs managed side by side. Set frequencies, block out dates, reschedule in seconds.' },
-              { num:'02', icon:'🗺️', title:'Smarter Routing', desc:'Automatically group and sequence nearby jobs to reduce drive time. Less fuel, more jobs per day.' },
-              { num:'03', icon:'🏡', title:'Customer & Property Records', desc:'Gate codes, access notes, service history, and preferences stored against each property — always accessible.' },
-              { num:'04', icon:'📱', title:'Mobile Crew Access', desc:'Crews see their full job list, property notes, and status updates on their phone. No printing or group chats.' },
-              { num:'05', icon:'✅', title:'Job Status Tracking', desc:'Track which jobs are scheduled, in-progress, or completed. Full visibility from a single screen.' },
-              { num:'06', icon:'📷', title:'Notes & Photo Records', desc:'Capture photos, on-site notes, and issue flags directly on the job. Records that protect you and inform customers.' },
-            ].map(f => (
+              { num: "01", icon: "🗓️", title: "Flexible Scheduling", desc: "One-off and recurring jobs managed side by side. Set frequencies, block out dates, reschedule in seconds." },
+              { num: "02", icon: "🗺️", title: "Smarter Routing", desc: "Automatically group and sequence nearby jobs to reduce drive time. Less fuel, more jobs per day." },
+              { num: "03", icon: "🏡", title: "Customer & Property Records", desc: "Gate codes, access notes, service history, and preferences stored against each property — always accessible." },
+              { num: "04", icon: "📱", title: "Mobile Crew Access", desc: "Crews see their full job list, property notes, and status updates on their phone. No printing or group chats." },
+              { num: "05", icon: "✅", title: "Job Status Tracking", desc: "Track which jobs are scheduled, in-progress, or completed. Full visibility from a single screen." },
+              { num: "06", icon: "📷", title: "Notes & Photo Records", desc: "Capture photos, on-site notes, and issue flags directly on the job. Records that protect you and inform customers." },
+            ].map((f) => (
               <div className="feature-cell" key={f.num}>
                 <div className="feature-num">{f.num}</div>
                 <span className="feature-icon">{f.icon}</span>
@@ -591,21 +559,22 @@ export default function SwardSyncLanding() {
         </div>
       </section>
 
-      {/* WORKFLOW */}
       <section className="section workflow" id="workflow">
         <div className="section-inner">
           <div className="workflow-header">
             <div>
               <div className="section-label">How it will work</div>
               <h2 className="section-title">From morning dispatch <em>to final sign-off</em></h2>
-              <p className="section-sub">SwardSync will connect every part of your operation — office scheduling, field execution, and end-of-day follow-up — into one clean loop.</p>
+              <p className="section-sub">
+                SwardSync will connect every part of your operation — office scheduling, field execution, and end-of-day follow-up — into one clean loop.
+              </p>
             </div>
             <div className="workflow-visual-col">
               {[
-                { icon:'🏢', title:'Office', desc:'Scheduling, customer management, and route planning from one dashboard.' },
-                { icon:'🌿', title:'Field', desc:'Crews get full job details and update status live from their phones.' },
-                { icon:'📊', title:'Follow-up', desc:'Photo records, notes, and logs keep every job properly closed out.' },
-              ].map(b => (
+                { icon: "🏢", title: "Office", desc: "Scheduling, customer management, and route planning from one dashboard." },
+                { icon: "🌿", title: "Field", desc: "Crews get full job details and update status live from their phones." },
+                { icon: "📊", title: "Follow-up", desc: "Photo records, notes, and logs keep every job properly closed out." },
+              ].map((b) => (
                 <div className="workflow-badge" key={b.title}>
                   <div className="workflow-badge-icon">{b.icon}</div>
                   <div>
@@ -616,13 +585,14 @@ export default function SwardSyncLanding() {
               ))}
             </div>
           </div>
+
           <div className="workflow-steps">
             {[
-              { tag:'Morning — Office', num:'1', title:'Build and dispatch the day\'s schedule', desc:'Your office manager sets the schedule, groups nearby jobs, and sends each crew their full job list before they leave. No printed sheets, no phone calls.' },
-              { tag:'In the field — Crew', num:'2', title:'Crews arrive informed and ready to work', desc:'Each crew member opens the app and sees their jobs, property details, access notes, and customer preferences. First-time errors drop. Revisit work falls.' },
-              { tag:'Live — Office visibility', num:'3', title:'Track job progress without chasing anyone', desc:'The office sees job status update in real time as crews start and complete work. No status calls. No end-of-day scramble.' },
-              { tag:'Close of day — Records', num:'4', title:'Close every job with a proper record', desc:'Crews log notes and photos on completion. Every job closes with a clean record — useful for disputes, quality checks, and customer conversations.' },
-            ].map(s => (
+              { tag: "Morning — Office", num: "1", title: "Build and dispatch the day’s schedule", desc: "Your office manager sets the schedule, groups nearby jobs, and sends each crew their full job list before they leave. No printed sheets, no phone calls." },
+              { tag: "In the field — Crew", num: "2", title: "Crews arrive informed and ready to work", desc: "Each crew member opens the app and sees their jobs, property details, access notes, and customer preferences. First-time errors drop. Revisit work falls." },
+              { tag: "Live — Office visibility", num: "3", title: "Track job progress without chasing anyone", desc: "The office sees job status update in real time as crews start and complete work. No status calls. No end-of-day scramble." },
+              { tag: "Close of day — Records", num: "4", title: "Close every job with a proper record", desc: "Crews log notes and photos on completion. Every job closes with a clean record — useful for disputes, quality checks, and customer conversations." },
+            ].map((s) => (
               <div className="workflow-step" key={s.num}>
                 <div className="workflow-step-num-col">
                   <div className="workflow-step-num">{s.num}</div>
@@ -639,20 +609,21 @@ export default function SwardSyncLanding() {
         </div>
       </section>
 
-      {/* SAVINGS */}
       <section className="section savings" id="savings">
         <div className="savings-bg" />
-        <div className="section-inner" style={{ position:'relative', zIndex:2 }}>
+        <div className="section-inner" style={{ position: "relative", zIndex: 2 }}>
           <div className="section-label">Value &amp; cost efficiency</div>
           <h2 className="section-title">Built to pay for itself — <em>from month one</em></h2>
-          <p className="section-sub">SwardSync is priced for lawn care and landscaping businesses — not large enterprise contractors. Focused tools, honest pricing, and real return for your scale.</p>
+          <p className="section-sub">
+            SwardSync is priced for lawn care and landscaping businesses — not large enterprise contractors. Focused tools, honest pricing, and real return for your scale.
+          </p>
           <div className="savings-grid">
             {[
-              { icon:'⏱️', badge:'Office efficiency', title:'Reclaim hours from admin work', desc:'Manual scheduling, confirmation chasing, and spreadsheet upkeep quietly consume your office team. Centralised tools give those hours back.', items:['Faster daily schedule builds','No more manual status calls','Centralised customer and property records'] },
-              { icon:'🛣️', badge:'Crew productivity', title:'More jobs per crew, per day', desc:'Smarter route grouping and better upfront job briefing mean crews spend more time on-site and less time driving or asking questions.', items:['Reduced wasted travel between jobs','Fewer incomplete or incorrect visits','Crews briefed before they arrive'] },
-              { icon:'🛡️', badge:'Margin protection', title:'Cut the quiet costs that erode profit', desc:'Revisit jobs, fuel waste, poor records, and miscommunication are margin killers. SwardSync targets each one without adding complexity.', items:['Fewer costly revisit jobs','Lower fuel spend through better routing','Records that protect you in disputes'] },
-              { icon:'💵', badge:'Software cost', title:'Priced to fit your operation', desc:'Most field-service platforms are built and priced for multi-trade contractors. SwardSync is focused, affordable, and sized for your business — not theirs.', items:['No enterprise pricing for features you won\'t use','Transparent, straightforward pricing','Founding member rates locked in permanently'] },
-            ].map(c => (
+              { icon: "⏱️", badge: "Office efficiency", title: "Reclaim hours from admin work", desc: "Manual scheduling, confirmation chasing, and spreadsheet upkeep quietly consume your office team. Centralised tools give those hours back.", items: ["Faster daily schedule builds", "No more manual status calls", "Centralised customer and property records"] },
+              { icon: "🛣️", badge: "Crew productivity", title: "More jobs per crew, per day", desc: "Smarter route grouping and better upfront job briefing mean crews spend more time on-site and less time driving or asking questions.", items: ["Reduced wasted travel between jobs", "Fewer incomplete or incorrect visits", "Crews briefed before they arrive"] },
+              { icon: "🛡️", badge: "Margin protection", title: "Cut the quiet costs that erode profit", desc: "Revisit jobs, fuel waste, poor records, and miscommunication are margin killers. SwardSync targets each one without adding complexity.", items: ["Fewer costly revisit jobs", "Lower fuel spend through better routing", "Records that protect you in disputes"] },
+              { icon: "💵", badge: "Software cost", title: "Priced to fit your operation", desc: "Most field-service platforms are built and priced for multi-trade contractors. SwardSync is focused, affordable, and sized for your business — not theirs.", items: ["No enterprise pricing for features you won’t use", "Transparent, straightforward pricing", "Built for practical day-to-day operations"] },
+            ].map((c) => (
               <div className="savings-card" key={c.title}>
                 <div className="savings-card-head">
                   <div className="savings-card-icon">{c.icon}</div>
@@ -660,28 +631,33 @@ export default function SwardSyncLanding() {
                 </div>
                 <div className="savings-card-title">{c.title}</div>
                 <div className="savings-card-desc">{c.desc}</div>
-                <div className="savings-list">{c.items.map(item => <div className="savings-list-item" key={item}>{item}</div>)}</div>
+                <div className="savings-list">
+                  {c.items.map((item) => (
+                    <div className="savings-list-item" key={item}>{item}</div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WAITLIST */}
       <section className="section waitlist" id="waitlist">
         <div className="section-inner">
           <div className="waitlist-inner-wrap">
             <div className="waitlist-left">
               <div className="waitlist-eyebrow">Join the waitlist</div>
-              <h2 className="waitlist-title">Get in early.<br /><em>Lock in your rate.</em></h2>
-              <p className="waitlist-desc">Register your interest and we'll reach out before launch with early access, founding member pricing, and onboarding support. No commitment required.</p>
+              <h2 className="waitlist-title">Get in early.<br /><em>Stay in the loop.</em></h2>
+              <p className="waitlist-desc">
+                Register your interest and we’ll reach out before launch with early access updates, product news, and onboarding support. No commitment required.
+              </p>
               <div className="waitlist-perks">
                 {[
-                  { icon:'🔐', title:'Founding member pricing', desc:'Lock in a discounted rate that stays with you for as long as you use SwardSync.' },
-                  { icon:'🚀', title:'First access at launch', desc:'Waitlist members get access before the public. No queue, no wait.' },
-                  { icon:'💬', title:'Shape the product', desc:'Your feedback directly influences what we build before and after launch.' },
-                  { icon:'🤝', title:'Dedicated onboarding', desc:'We\'ll get you set up and running — not left to figure it out alone.' },
-                ].map(p => (
+                  { icon: "🚀", title: "Early access updates", desc: "Be the first to hear about launch timing, product updates, and availability." },
+                  { icon: "💬", title: "Shape the product", desc: "Your feedback directly influences what we build before and after launch." },
+                  { icon: "🤝", title: "Dedicated onboarding", desc: "We’ll get you set up and running — not left to figure it out alone." },
+                  { icon: "🌿", title: "Built for your workflow", desc: "We are designing SwardSync around the real day-to-day needs of lawn care businesses." },
+                ].map((p) => (
                   <div className="waitlist-perk" key={p.title}>
                     <div className="waitlist-perk-icon">{p.icon}</div>
                     <div>
@@ -692,39 +668,43 @@ export default function SwardSyncLanding() {
                 ))}
               </div>
             </div>
+
             <div className="waitlist-right">
               {!waitlistSubmitted ? (
                 <>
                   <div className="waitlist-form-title">Reserve your spot</div>
-                  <div className="waitlist-form-sub">Tell us about your operation and we'll follow up personally before launch.</div>
+                  <div className="waitlist-form-sub">Tell us about your operation and we’ll follow up personally before launch.</div>
                   <div className="contact-form">
                     <div className="form-row">
                       <div className="form-group">
                         <label className="form-label">First name</label>
-                        <input className="form-input" type="text" placeholder="Jane" value={waitlistForm.firstName} onChange={e => setWaitlistForm(f => ({...f, firstName: e.target.value}))} />
+                        <input className="form-input" type="text" placeholder="Jane" value={waitlistForm.firstName} onChange={(e) => setWaitlistForm((f) => ({ ...f, firstName: e.target.value }))} />
                       </div>
                       <div className="form-group">
                         <label className="form-label">Last name</label>
-                        <input className="form-input" type="text" placeholder="Smith" value={waitlistForm.lastName} onChange={e => setWaitlistForm(f => ({...f, lastName: e.target.value}))} />
+                        <input className="form-input" type="text" placeholder="Smith" value={waitlistForm.lastName} onChange={(e) => setWaitlistForm((f) => ({ ...f, lastName: e.target.value }))} />
                       </div>
                     </div>
+
                     <div className="form-row">
                       <div className="form-group">
                         <label className="form-label">Company name</label>
-                        <input className="form-input" type="text" placeholder="Green Horizons Ltd" value={waitlistForm.company} onChange={e => setWaitlistForm(f => ({...f, company: e.target.value}))} />
+                        <input className="form-input" type="text" placeholder="Green Horizons Ltd" value={waitlistForm.company} onChange={(e) => setWaitlistForm((f) => ({ ...f, company: e.target.value }))} />
                       </div>
                       <div className="form-group">
                         <label className="form-label">Phone number</label>
-                        <input className="form-input" type="tel" placeholder="+44 7700 000000" value={waitlistForm.phone} onChange={e => setWaitlistForm(f => ({...f, phone: e.target.value}))} />
+                        <input className="form-input" type="tel" placeholder="+44 7700 000000" value={waitlistForm.phone} onChange={(e) => setWaitlistForm((f) => ({ ...f, phone: e.target.value }))} />
                       </div>
                     </div>
+
                     <div className="form-group">
                       <label className="form-label">Email address</label>
-                      <input className="form-input" type="email" placeholder="jane@company.com" value={waitlistForm.email} onChange={e => setWaitlistForm(f => ({...f, email: e.target.value}))} />
+                      <input className="form-input" type="email" placeholder="jane@company.com" value={waitlistForm.email} onChange={(e) => setWaitlistForm((f) => ({ ...f, email: e.target.value }))} />
                     </div>
+
                     <div className="form-group">
                       <label className="form-label">How many crew members do you run?</label>
-                      <select className="form-input form-select" value={waitlistForm.size} onChange={e => setWaitlistForm(f => ({...f, size: e.target.value}))}>
+                      <select className="form-input form-select" value={waitlistForm.size} onChange={(e) => setWaitlistForm((f) => ({ ...f, size: e.target.value }))}>
                         <option value="">Select crew size</option>
                         <option>Just me (sole trader)</option>
                         <option>2–3 crew members</option>
@@ -733,19 +713,23 @@ export default function SwardSyncLanding() {
                         <option>16+ crew members</option>
                       </select>
                     </div>
+
                     <div className="form-group">
-                      <label className="form-label">What's your biggest operational challenge right now?</label>
-                      <textarea className="form-input form-textarea" placeholder="e.g. scheduling takes too long, crews miss job details, too much time on admin..." value={waitlistForm.note} onChange={e => setWaitlistForm(f => ({...f, note: e.target.value}))} />
+                      <label className="form-label">What’s your biggest operational challenge right now?</label>
+                      <textarea className="form-input form-textarea" placeholder="e.g. scheduling takes too long, crews miss job details, too much time on admin..." value={waitlistForm.note} onChange={(e) => setWaitlistForm((f) => ({ ...f, note: e.target.value }))} />
                     </div>
+
                     <button className="form-submit" onClick={handleWaitlistSubmit}>Reserve My Spot →</button>
-                    <p className="form-note">No payment required. We'll never share your details. Unsubscribe any time.</p>
+                    <p className="form-note">No payment required. We’ll never share your details. Unsubscribe any time.</p>
                   </div>
                 </>
               ) : (
                 <div className="waitlist-success">
                   <div className="waitlist-success-icon">🌿</div>
-                  <div className="waitlist-success-title">You're on the list.</div>
-                  <div className="waitlist-success-desc">We'll be in touch personally before launch with your early access details and founding member pricing. Thank you for believing in what we're building.</div>
+                  <div className="waitlist-success-title">You’re on the list.</div>
+                  <div className="waitlist-success-desc">
+                    We’ll be in touch personally before launch with your early access details and product updates. Thank you for believing in what we’re building.
+                  </div>
                 </div>
               )}
             </div>
@@ -753,13 +737,14 @@ export default function SwardSyncLanding() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="footer">
         <div className="footer-inner">
           <div className="footer-top">
             <div>
               <div className="footer-brand-name">SwardSync Systems</div>
-              <p className="footer-brand-desc">Affordable scheduling, routing, and crew management software built for lawn care and landscaping businesses. Launching 2025.</p>
+              <p className="footer-brand-desc">
+                Affordable scheduling, routing, and crew management software built for lawn care and landscaping businesses. Launching 2025.
+              </p>
               <div className="footer-brand-status">
                 <span className="footer-brand-status-dot" />
                 Pre-launch — waitlist open
@@ -768,13 +753,17 @@ export default function SwardSyncLanding() {
             <div>
               <div className="footer-col-title">The Product</div>
               <div className="footer-links">
-                {[['Features','#features'],['How It Works','#workflow'],['Early Access Pricing','#founding'],['Join the Waitlist','#waitlist']].map(([l,h]) => <a href={h} className="footer-link" key={l}>{l}</a>)}
+                {[["Features", "#features"], ["How It Works", "#workflow"], ["Join the Waitlist", "#waitlist"]].map(([l, h]) => (
+                  <a href={h} className="footer-link" key={l}>{l}</a>
+                ))}
               </div>
             </div>
             <div>
               <div className="footer-col-title">Company</div>
               <div className="footer-links">
-                {[['About Us','#'],['Our Roadmap','#'],['Contact','#waitlist'],['hello@swardsync.com','#']].map(([l,h]) => <a href={h} className="footer-link" key={l}>{l}</a>)}
+                {[["About Us", "#"], ["Our Roadmap", "#"], ["Contact", "#waitlist"], ["hello@swardsync.com", "#"]].map(([l, h]) => (
+                  <a href={h} className="footer-link" key={l}>{l}</a>
+                ))}
               </div>
             </div>
           </div>
