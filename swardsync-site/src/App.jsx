@@ -4,6 +4,10 @@ export default function SwardSyncLanding() {
   const [email, setEmail] = useState("");
   const [heroSubmitted, setHeroSubmitted] = useState(false);
   const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
+  const [heroSaving, setHeroSaving] = useState(false);
+  const [waitlistSaving, setWaitlistSaving] = useState(false);
+  const [heroError, setHeroError] = useState("");
+  const [waitlistError, setWaitlistError] = useState("");
   const [waitlistForm, setWaitlistForm] = useState({
     firstName: "",
     lastName: "",
@@ -14,7 +18,7 @@ export default function SwardSyncLanding() {
     note: "",
   });
 
-  const BETA_LAUNCH_DATE = new Date("2026-09-01T09:00:00");
+  const BETA_LAUNCH_DATE = new Date("2026-06-01T09:00:00");
 
   const getCountdown = () => {
     const now = new Date().getTime();
@@ -53,13 +57,85 @@ export default function SwardSyncLanding() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleHeroSubmit = (e) => {
-    e.preventDefault();
-    if (email.trim()) setHeroSubmitted(true);
+  const saveInterest = async (payload) => {
+    const response = await fetch("/api/register-interest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.ok) {
+      throw new Error(data.error || "Failed to save interest");
+    }
+
+    return data;
   };
 
-  const handleWaitlistSubmit = () => {
-    if (waitlistForm.email.trim()) setWaitlistSubmitted(true);
+  const handleHeroSubmit = async (e) => {
+    e.preventDefault();
+    setHeroError("");
+
+    if (!email.trim()) return;
+
+    try {
+      setHeroSaving(true);
+
+      await saveInterest({
+        source: "hero",
+        email: email.trim(),
+        pageUrl: window.location.href,
+        userAgent: navigator.userAgent,
+      });
+
+      setHeroSubmitted(true);
+      setEmail("");
+    } catch (error) {
+      setHeroError("Sorry, we couldn't save your details. Please try again.");
+    } finally {
+      setHeroSaving(false);
+    }
+  };
+
+  const handleWaitlistSubmit = async () => {
+    setWaitlistError("");
+
+    if (!waitlistForm.email.trim()) return;
+
+    try {
+      setWaitlistSaving(true);
+
+      await saveInterest({
+        source: "waitlist",
+        firstName: waitlistForm.firstName.trim(),
+        lastName: waitlistForm.lastName.trim(),
+        company: waitlistForm.company.trim(),
+        phone: waitlistForm.phone.trim(),
+        email: waitlistForm.email.trim(),
+        size: waitlistForm.size,
+        note: waitlistForm.note.trim(),
+        pageUrl: window.location.href,
+        userAgent: navigator.userAgent,
+      });
+
+      setWaitlistSubmitted(true);
+      setWaitlistForm({
+        firstName: "",
+        lastName: "",
+        company: "",
+        phone: "",
+        email: "",
+        size: "",
+        note: "",
+      });
+    } catch (error) {
+      setWaitlistError("Sorry, we couldn't save your details. Please try again.");
+    } finally {
+      setWaitlistSaving(false);
+    }
   };
 
   const styles = `
@@ -86,6 +162,8 @@ export default function SwardSyncLanding() {
       --text-700:  #2a4035;
       --text-500:  #4d6b5c;
       --text-300:  #8aaa97;
+      --error:     #ffdddd;
+      --error-dark:#b91c1c;
       --radius-sm: 6px;
       --radius-md: 12px;
       --radius-lg: 20px;
@@ -106,9 +184,7 @@ export default function SwardSyncLanding() {
       background: var(--cream);
     }
 
-    body {
-      margin: 0;
-    }
+    body { margin: 0; }
 
     .sws-root {
       width: 100%;
@@ -119,7 +195,6 @@ export default function SwardSyncLanding() {
       overflow-x: hidden;
     }
 
-    /* ANNOUNCEMENT BAR */
     .announce-bar {
       background: linear-gradient(90deg, var(--green-900) 0%, var(--green-700) 50%, var(--green-800) 100%);
       padding: 9px 4vw;
@@ -143,7 +218,6 @@ export default function SwardSyncLanding() {
     }
     .announce-link:hover { color: var(--white); }
 
-    /* NAV */
     .nav {
       position: fixed; top: 38px; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -173,7 +247,6 @@ export default function SwardSyncLanding() {
 
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.55;transform:scale(0.85)} }
 
-    /* HERO */
     .hero {
       min-height: 100vh;
       display: flex; flex-direction: column; justify-content: center;
@@ -235,8 +308,15 @@ export default function SwardSyncLanding() {
     .hero-capture-form:focus-within { border-color: rgba(255,255,255,0.40); box-shadow: 0 0 0 4px rgba(255,255,255,0.06); }
     .hero-capture-input { flex: 1; font-family: var(--font-body); font-size: 14.5px; font-weight: 400; padding: 13px 18px; background: transparent; border: none; outline: none; color: var(--white); }
     .hero-capture-input::placeholder { color: rgba(216,240,228,0.45); }
-    .hero-capture-btn { background: var(--white); color: var(--green-700); font-family: var(--font-body); font-size: 13.5px; font-weight: 700; padding: 13px 22px; border: none; cursor: pointer; white-space: nowrap; letter-spacing: 0.02em; transition: background 0.2s; flex-shrink: 0; }
+    .hero-capture-btn {
+      background: var(--white); color: var(--green-700); font-family: var(--font-body); font-size: 13.5px; font-weight: 700;
+      padding: 13px 22px; border: none; cursor: pointer; white-space: nowrap; letter-spacing: 0.02em; transition: background 0.2s; flex-shrink: 0;
+    }
     .hero-capture-btn:hover { background: var(--green-50); }
+    .hero-capture-btn:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+    }
     .hero-capture-success {
       display: flex; align-items: center; gap: 10px;
       background: rgba(90,173,126,0.18); border: 1.5px solid rgba(90,173,126,0.35);
@@ -246,6 +326,7 @@ export default function SwardSyncLanding() {
     .hero-capture-success-text { font-size: 14px; color: var(--green-100); font-weight: 400; line-height: 1.4; }
     .hero-capture-success-text strong { font-weight: 600; }
     .hero-capture-note { font-size: 11.5px; color: rgba(216,240,228,0.45); margin-top: 9px; }
+    .hero-capture-note.error { color: var(--error); }
     .hero-social-proof { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
     .hero-proof-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: rgba(216,240,228,0.65); font-weight: 300; }
 
@@ -270,7 +351,6 @@ export default function SwardSyncLanding() {
     .hero-card-val span { font-size: 15px; font-weight: 500; }
     .hero-card-label { font-size: 11px; font-weight: 400; color: var(--green-200); line-height: 1.4; }
 
-    /* SECTION */
     .section { padding: 96px 4vw; width: 100%; }
     .section-inner { max-width: 1440px; margin: 0 auto; width: 100%; }
     .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-500); margin-bottom: 16px; }
@@ -279,7 +359,6 @@ export default function SwardSyncLanding() {
     .section-title em { font-style: italic; color: var(--green-500); }
     .section-sub { font-size: 17px; font-weight: 300; line-height: 1.7; color: var(--text-500); max-width: 700px; }
 
-    /* PAIN */
     .pain { background: var(--white); }
     .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
     .pain-card { border: 1px solid rgba(46,107,72,0.12); border-radius: var(--radius-md); padding: 32px 28px; background: var(--white); transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s; position: relative; overflow: hidden; }
@@ -290,7 +369,6 @@ export default function SwardSyncLanding() {
     .pain-title { font-size: 16px; font-weight: 600; color: var(--text-900); margin-bottom: 10px; }
     .pain-desc { font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--text-500); }
 
-    /* FEATURES */
     .features { background: var(--green-900); }
     .features .section-title { color: var(--white); }
     .features .section-sub { color: rgba(216,240,228,0.70); }
@@ -305,7 +383,6 @@ export default function SwardSyncLanding() {
     .feature-title { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
     .feature-desc { font-size: 13.5px; font-weight: 300; line-height: 1.65; color: rgba(216,240,228,0.65); }
 
-    /* WORKFLOW */
     .workflow { background: var(--cream); }
     .workflow-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-bottom: 72px; }
     .workflow-step { display: grid; grid-template-columns: 80px 1fr; gap: 0; align-items: start; }
@@ -323,7 +400,6 @@ export default function SwardSyncLanding() {
     .workflow-badge-title { font-size: 14px; font-weight: 600; color: var(--text-900); margin-bottom: 3px; }
     .workflow-badge-desc { font-size: 12.5px; color: var(--text-500); line-height: 1.5; font-weight: 300; }
 
-    /* SAVINGS */
     .savings { background: linear-gradient(135deg, var(--green-800) 0%, var(--green-700) 100%); position: relative; overflow: hidden; }
     .savings-bg { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 80% 50%, rgba(90,173,126,0.15) 0%, transparent 60%); }
     .savings .section-title { color: var(--white); }
@@ -342,7 +418,6 @@ export default function SwardSyncLanding() {
     .savings-list-item { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: rgba(216,240,228,0.80); font-weight: 300; }
     .savings-list-item::before { content: '✓'; color: var(--green-300); font-size: 11px; font-weight: 700; flex-shrink: 0; }
 
-    /* WAITLIST */
     .waitlist { background: var(--cream); }
     .waitlist-inner-wrap {
       background: var(--green-900);
@@ -375,15 +450,24 @@ export default function SwardSyncLanding() {
     .form-input::placeholder { color: var(--text-300); }
     .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238aaa97' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; cursor: pointer; }
     .form-textarea { resize: vertical; min-height: 90px; }
-    .form-submit { background: var(--green-700); color: var(--white); font-family: var(--font-body); font-size: 15px; font-weight: 600; padding: 14px 28px; border-radius: var(--radius-sm); border: none; cursor: pointer; letter-spacing: 0.02em; box-shadow: 0 4px 18px rgba(26,61,43,0.25); transition: background 0.2s, transform 0.15s, box-shadow 0.2s; align-self: flex-start; }
+    .form-submit {
+      background: var(--green-700); color: var(--white); font-family: var(--font-body); font-size: 15px; font-weight: 600;
+      padding: 14px 28px; border-radius: var(--radius-sm); border: none; cursor: pointer; letter-spacing: 0.02em;
+      box-shadow: 0 4px 18px rgba(26,61,43,0.25); transition: background 0.2s, transform 0.15s, box-shadow 0.2s; align-self: flex-start;
+    }
     .form-submit:hover { background: var(--green-600); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(26,61,43,0.30); }
+    .form-submit:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+    }
     .form-note { font-size: 11.5px; color: var(--text-300); line-height: 1.5; }
+    .form-note.error { color: var(--error-dark); }
     .waitlist-success { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 32px 16px; gap: 18px; min-height: 400px; }
     .waitlist-success-icon { font-size: 52px; }
     .waitlist-success-title { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--text-900); }
     .waitlist-success-desc { font-size: 15px; color: var(--text-500); font-weight: 300; line-height: 1.65; max-width: 320px; }
 
-    /* FOOTER */
     .footer { background: var(--green-900); padding: 52px 4vw 32px; width: 100%; }
     .footer-inner { max-width: 1440px; margin: 0 auto; width: 100%; }
     .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
@@ -402,7 +486,6 @@ export default function SwardSyncLanding() {
     .footer-legal a { font-size: 12px; color: rgba(216,240,228,0.30); text-decoration: none; font-weight: 300; transition: color 0.2s; }
     .footer-legal a:hover { color: rgba(216,240,228,0.60); }
 
-    /* RESPONSIVE */
     @media (max-width: 1200px) {
       .hero-inner { grid-template-columns: 1fr; gap: 48px; }
       .hero-right { max-width: 700px; }
@@ -447,7 +530,7 @@ export default function SwardSyncLanding() {
       <div className="announce-bar">
         <div className="announce-pill">Coming Soon</div>
         <div className="announce-text">
-          <strong>SwardSync beta launches in September 2026.</strong> Join the waitlist for early access updates and launch news.
+          <strong>SwardSync beta launches in June 2026.</strong> Join the waitlist for early access updates and launch news.
         </div>
         <a href="#waitlist" className="announce-link">Join the waitlist →</a>
       </div>
@@ -473,7 +556,7 @@ export default function SwardSyncLanding() {
         <div className="hero-inner">
           <div>
             <div className="hero-badge-row">
-              <div className="hero-badge"><span className="hero-badge-dot" />Beta Launching September 2026</div>
+              <div className="hero-badge"><span className="hero-badge-dot" />Beta Launching June 2026</div>
               <div className="hero-badge-secondary">Early Access Open</div>
             </div>
             <h1 className="hero-headline">
@@ -482,6 +565,7 @@ export default function SwardSyncLanding() {
             <p className="hero-sub">
               SwardSync is new software built specifically for lawn care and landscaping companies — smarter scheduling, better routing, informed crews, and cleaner daily operations.
             </p>
+
             <div className="hero-capture">
               {!heroSubmitted ? (
                 <>
@@ -493,9 +577,12 @@ export default function SwardSyncLanding() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
-                    <button className="hero-capture-btn" type="submit">Get Early Access</button>
+                    <button className="hero-capture-btn" type="submit" disabled={heroSaving}>
+                      {heroSaving ? "Saving..." : "Get Early Access"}
+                    </button>
                   </form>
                   <div className="hero-capture-note">No spam. We'll notify you before we launch. Unsubscribe any time.</div>
+                  {heroError && <div className="hero-capture-note error">{heroError}</div>}
                 </>
               ) : (
                 <div className="hero-capture-success">
@@ -506,6 +593,7 @@ export default function SwardSyncLanding() {
                 </div>
               )}
             </div>
+
             <div className="hero-social-proof">
               <div className="hero-proof-item">⚡ Early access updates before launch</div>
               <div className="hero-proof-item">💬 Shape the product before launch</div>
@@ -531,7 +619,7 @@ export default function SwardSyncLanding() {
               </div>
               <div className="hero-countdown-divider" />
               <div className="hero-launch-date">
-                Targeting a <strong>September 2026 beta launch</strong>. Waitlist members get early access updates and a direct line to the team during onboarding.
+                Targeting a <strong>June 2026 beta launch</strong>. Waitlist members get early access updates and a direct line to the team during onboarding.
               </div>
             </div>
 
@@ -726,33 +814,67 @@ export default function SwardSyncLanding() {
                     <div className="form-row">
                       <div className="form-group">
                         <label className="form-label">First name</label>
-                        <input className="form-input" type="text" placeholder="Jane" value={waitlistForm.firstName} onChange={(e) => setWaitlistForm((f) => ({ ...f, firstName: e.target.value }))} />
+                        <input
+                          className="form-input"
+                          type="text"
+                          placeholder="Jane"
+                          value={waitlistForm.firstName}
+                          onChange={(e) => setWaitlistForm((f) => ({ ...f, firstName: e.target.value }))}
+                        />
                       </div>
                       <div className="form-group">
                         <label className="form-label">Last name</label>
-                        <input className="form-input" type="text" placeholder="Smith" value={waitlistForm.lastName} onChange={(e) => setWaitlistForm((f) => ({ ...f, lastName: e.target.value }))} />
+                        <input
+                          className="form-input"
+                          type="text"
+                          placeholder="Smith"
+                          value={waitlistForm.lastName}
+                          onChange={(e) => setWaitlistForm((f) => ({ ...f, lastName: e.target.value }))}
+                        />
                       </div>
                     </div>
 
                     <div className="form-row">
                       <div className="form-group">
                         <label className="form-label">Company name</label>
-                        <input className="form-input" type="text" placeholder="Green Horizons Ltd" value={waitlistForm.company} onChange={(e) => setWaitlistForm((f) => ({ ...f, company: e.target.value }))} />
+                        <input
+                          className="form-input"
+                          type="text"
+                          placeholder="Green Horizons Ltd"
+                          value={waitlistForm.company}
+                          onChange={(e) => setWaitlistForm((f) => ({ ...f, company: e.target.value }))}
+                        />
                       </div>
                       <div className="form-group">
                         <label className="form-label">Phone number</label>
-                        <input className="form-input" type="tel" placeholder="+44 7700 000000" value={waitlistForm.phone} onChange={(e) => setWaitlistForm((f) => ({ ...f, phone: e.target.value }))} />
+                        <input
+                          className="form-input"
+                          type="tel"
+                          placeholder="+44 7700 000000"
+                          value={waitlistForm.phone}
+                          onChange={(e) => setWaitlistForm((f) => ({ ...f, phone: e.target.value }))}
+                        />
                       </div>
                     </div>
 
                     <div className="form-group">
                       <label className="form-label">Email address</label>
-                      <input className="form-input" type="email" placeholder="jane@company.com" value={waitlistForm.email} onChange={(e) => setWaitlistForm((f) => ({ ...f, email: e.target.value }))} />
+                      <input
+                        className="form-input"
+                        type="email"
+                        placeholder="jane@company.com"
+                        value={waitlistForm.email}
+                        onChange={(e) => setWaitlistForm((f) => ({ ...f, email: e.target.value }))}
+                      />
                     </div>
 
                     <div className="form-group">
                       <label className="form-label">How many crew members do you run?</label>
-                      <select className="form-input form-select" value={waitlistForm.size} onChange={(e) => setWaitlistForm((f) => ({ ...f, size: e.target.value }))}>
+                      <select
+                        className="form-input form-select"
+                        value={waitlistForm.size}
+                        onChange={(e) => setWaitlistForm((f) => ({ ...f, size: e.target.value }))}
+                      >
                         <option value="">Select crew size</option>
                         <option>Just me (sole trader)</option>
                         <option>2–3 crew members</option>
@@ -764,11 +886,20 @@ export default function SwardSyncLanding() {
 
                     <div className="form-group">
                       <label className="form-label">What’s your biggest operational challenge right now?</label>
-                      <textarea className="form-input form-textarea" placeholder="e.g. scheduling takes too long, crews miss job details, too much time on admin..." value={waitlistForm.note} onChange={(e) => setWaitlistForm((f) => ({ ...f, note: e.target.value }))} />
+                      <textarea
+                        className="form-input form-textarea"
+                        placeholder="e.g. scheduling takes too long, crews miss job details, too much time on admin..."
+                        value={waitlistForm.note}
+                        onChange={(e) => setWaitlistForm((f) => ({ ...f, note: e.target.value }))}
+                      />
                     </div>
 
-                    <button className="form-submit" onClick={handleWaitlistSubmit}>Reserve My Spot →</button>
-                    <p className="form-note">No payment required. We’ll never share your details. Unsubscribe any time.</p>
+                    <button className="form-submit" type="button" onClick={handleWaitlistSubmit} disabled={waitlistSaving}>
+                      {waitlistSaving ? "Saving..." : "Reserve My Spot →"}
+                    </button>
+
+                    <p className="form-note">We’ll never share your details. Unsubscribe any time.</p>
+                    {waitlistError && <p className="form-note error">{waitlistError}</p>}
                   </div>
                 </>
               ) : (
@@ -791,7 +922,7 @@ export default function SwardSyncLanding() {
             <div>
               <div className="footer-brand-name">SwardSync Systems</div>
               <p className="footer-brand-desc">
-                Affordable scheduling, routing, and crew management software built for lawn care and landscaping businesses. Beta launching September 2026.
+                Affordable scheduling, routing, and crew management software built for lawn care and landscaping businesses. Beta launching June 2026.
               </p>
               <div className="footer-brand-status">
                 <span className="footer-brand-status-dot" />
